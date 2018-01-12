@@ -1,0 +1,4 @@
+/home/oranngeoai/Documents/project/udp_randevu/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/oranngeoai/Documents/project/udp_randevu/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/oranngeoai/Documents/project/udp_randevu/cmake-build-debug/CMakeFiles/udp_randevo_client.dir
+/home/oranngeoai/Documents/project/udp_randevu/cmake-build-debug/CMakeFiles/udp_randevo_server.dir

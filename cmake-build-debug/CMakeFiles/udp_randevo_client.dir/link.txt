@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/udp_randevo_client.dir/main_client.cpp.o CMakeFiles/udp_randevo_client.dir/Request.cpp.o CMakeFiles/udp_randevo_client.dir/Client.cpp.o  -o udp_randevo_client -lpthread 
