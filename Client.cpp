@@ -155,6 +155,7 @@ void Client::handleIncomingRequest(Request* new_request){
 
         case '5':
             cout << "server informs sender that receiver sends a hello" << endl;
+            SendStream("This is the sender");
             break;
         default:
             cout << new_request->getCode() << new_request->getBody() << endl;
