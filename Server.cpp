@@ -74,7 +74,9 @@ Request* Server::AcceptRequest(){
     Request* new_request = new Request(cli_address, data);
 
     cout << "Request created" << endl;
-    cout << "new request address = " << new_request << endl;
+
+    cout << "Client IP:Port " << cli_address.sin_addr.s_addr << ":" << cli_address.sin_port << endl;
+    cout << "Client IP:Port " << inet_ntoa(cli_address.sin_addr) << ":" << ntohs(cli_address.sin_port) << endl;
 
     return new_request;
 }

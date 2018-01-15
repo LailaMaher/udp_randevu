@@ -57,6 +57,9 @@ void Client::SendStream(string data, bool DATA){
 
     if(DATA){
         cout << "Data sent to peer" << endl;
+        cout << "Peer IP:Port " << peer_address.sin_addr.s_addr << ":" << peer_address.sin_port << endl;
+        cout << "Peer IP:Port " << inet_ntoa(peer_address.sin_addr) << ":" << ntohs(peer_address.sin_port) << endl;
+
         if( sendto(getDescriptor(), buffer, 1023, 0, (struct sockaddr*)&peer_address, sizeof(peer_address)) < 0 )
             perror("SEND STREAM TO PEER FAILED");
     }
