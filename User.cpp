@@ -70,8 +70,8 @@ void User::connectToPeer(User* peer){
         setBusy(true);
         peer->setBusy(true);
 
-        writeToClient("1" + peer->getIP() + "/" + peer->getPort());
-        peer->writeToClient("2" + getIP() + "/" + getPort());
+        writeToClient("2" + peer->getIP() + "/" + peer->getPort());
+        peer->writeToClient("3" + getIP() + "/" + getPort());
 
     }
 
