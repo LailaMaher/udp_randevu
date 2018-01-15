@@ -38,7 +38,7 @@ SOCKADDR_P Server::getAddress() const{
 
 void Server::createSocket(int p){
     PORT_NUM = p;
-    setDescriptor( socket(AF_INET, SOCK_DGRAM, 0) );
+    setDescriptor( socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP) );
     setAddress();
     if( bind(getDescriptor(), getAddress(), sizeof(address)) < 0 )
         perror("BIND ERROR");

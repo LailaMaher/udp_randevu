@@ -35,7 +35,7 @@ sockaddr* Client::getAddress() const{
 
 void Client::CreateSocket(){
 
-    setDescriptor(socket(AF_INET, SOCK_DGRAM, 0));
+    setDescriptor(socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP));
     setAddress();
     if( bind(getDescriptor(), (struct sockaddr *)&address, sizeof(address)) < 0 )
         perror("BIND ERROR");
