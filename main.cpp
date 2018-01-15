@@ -3,7 +3,7 @@
 
 void* Work(void* user_v){
 
-    Request* new_request = (Request*)new_request;
+    Request* new_request = (Request*)user_v;
 
     cout << "passed to work request address = " << new_request << endl;
 
