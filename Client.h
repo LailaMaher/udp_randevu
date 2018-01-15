@@ -30,6 +30,7 @@ public:
 
     void setPeerAddress(string);
     string getPeerIP() const;
+    string getPeerPort() const;
 
     Request AcceptRequest();
     void handleIncomingRequest(Request*);

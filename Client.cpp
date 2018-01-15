@@ -117,6 +117,12 @@ string Client::getPeerIP() const{
     return ip;
 }
 
+string Client::getPeerPort() const{
+    char port[128];
+    sprintf(port, "%u", address.sin_port);
+    string port_s(port);
+    return port_s;
+}
 
 void Client::handleIncomingRequest(Request* new_request){
 
@@ -124,14 +130,14 @@ void Client::handleIncomingRequest(Request* new_request){
 
     switch(token){
         case '1':
-            cout << "Connection to server succeed My Id" << new_request->getBody() << endl;
+            cout << "Connection to server succeed My Id[" << new_request->getBody() << "]" << endl;
             break;
 
         case '2':
             cout << "Sender get peer IP" << endl;
             setPeerAddress(new_request->getBody());
             SendStream("hello");
-            SendStream("3" + getPeerIP(), false);
+            SendStream("3" + getPeerIP() + "/" + getPeerPort(), false);
             break;
 
         case '3':
@@ -142,7 +148,7 @@ void Client::handleIncomingRequest(Request* new_request){
         case '4':
             cout << "server informs receiver about lost hello" << endl;
             SendStream("hello");
-            SendStream("4" + getPeerIP(), false);
+            SendStream("4" + getPeerIP() + "/" + getPeerPort(), false);
             break;
 
         case '5':

@@ -21,7 +21,7 @@ class Server {
     User* createUser(Request*);
 
     User* isExist(int);
-    User* getByIP(string);
+    User* getByIPORT(string, string);
 
     Server();
 

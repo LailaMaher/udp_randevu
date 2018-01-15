@@ -44,11 +44,11 @@ void Server::createSocket(int p){
         perror("BIND ERROR");
 }
 
-User* Server::getByIP(string ip){
+User* Server::getByIPORT(string ip, string port){
     pthread_mutex_lock(&users_mutex);
 
     for(int i=0; i<current_users; i++){
-        if(ip.compare(users[i]->getIP()) == 0){
+        if(ip.compare(users[i]->getIP()) == 0 && port.compare(users[i]->getPort()) == 0){
             pthread_mutex_unlock(&users_mutex);
             return users[i];
         }
@@ -126,13 +126,13 @@ User* Server::isExist(int ID){
 
 void Server::HandleRequest(Request* new_request){
 
-    cout << "Handle new request" << endl;
-    cout << "handle request address = " << new_request << endl;
+    cout << endl << "\t\t---Handle new request---" << endl;
 
     char token = new_request->getCode();
-    cout << "current token " << token << endl;
+    cout << "request token " << token << endl;
 
-    string peer_ID;
+    size_t del;
+    string peer_ID, peer_IP, peer_PORT;
     User* peer = NULL;
     User* client = NULL;
     User* new_user = NULL;
@@ -149,20 +149,30 @@ void Server::HandleRequest(Request* new_request){
             peer_ID = new_request->getBody();
             peer = isExist(stoi(peer_ID));
             if(peer != NULL){
-                client = getByIP(new_request->getIP());
+                client = getByIPORT(new_request->getIP(), new_request->getPort());
                 client->connectToPeer(peer);
             }
             break;
 
         case '3':
             cout << "Acknowledge from sender sending hello to receiver" << endl;
-            peer = getByIP(new_request->getBody());
+            del = new_request->getBody().find('/');
+
+            peer_IP = new_request->getBody().substr(0, del);
+            peer_PORT = new_request->getBody().substr(del + 1, new_request->getBody().length() - del - 1);
+
+            peer = getByIPORT(peer_IP, peer_PORT);
             peer->writeToClient("4");
             break;
 
         case '4':
             cout << "Acknowledge from receiver sending hello to initiator" << endl;
-            peer = getByIP(new_request->getBody());
+            del = new_request->getBody().find('/');
+
+            peer_IP = new_request->getBody().substr(0, del);
+            peer_PORT = new_request->getBody().substr(del + 1, new_request->getBody().length() - del - 1);
+
+            peer = getByIPORT(peer_IP, peer_PORT);
             peer->writeToClient("5");
             break;
 
