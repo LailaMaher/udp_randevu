@@ -4,6 +4,9 @@
 void* Work(void* user_v){
 
     Request* new_request = (Request*)new_request;
+
+    cout << "passed to work request address = " << new_request << endl;
+
     Server::instance()->HandleRequest(new_request);
     cout << "deleting Request" << endl;
     delete new_request;

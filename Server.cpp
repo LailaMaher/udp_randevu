@@ -73,6 +73,7 @@ Request* Server::AcceptRequest(){
     Request* new_request = new Request(cli_address, data);
 
     cout << "Request created" << endl;
+    cout << "new request address = " << new_request << endl;
 
     return new_request;
 }
@@ -126,6 +127,7 @@ User* Server::isExist(int ID){
 void Server::HandleRequest(Request* new_request){
 
     cout << "Handle new request" << endl;
+    cout << "handle request address = " << new_request << endl;
 
     char token = new_request->getCode();
     cout << "current token " << token << endl;
