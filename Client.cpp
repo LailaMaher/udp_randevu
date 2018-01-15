@@ -119,7 +119,7 @@ string Client::getPeerIP() const{
 
 string Client::getPeerPort() const{
     char port[128];
-    sprintf(port, "%u", address.sin_port);
+    sprintf(port, "%u", ntohs(address.sin_port));
     string port_s(port);
     return port_s;
 }
@@ -135,6 +135,7 @@ void Client::handleIncomingRequest(Request* new_request){
 
         case '2':
             cout << "Sender get peer IP" << endl;
+            cout << "My peer address " << getPeerIP() << ":" << getPeerPort();
             setPeerAddress(new_request->getBody());
             SendStream("hello");
             SendStream("3" + getPeerIP() + "/" + getPeerPort(), false);
@@ -147,6 +148,7 @@ void Client::handleIncomingRequest(Request* new_request){
 
         case '4':
             cout << "server informs receiver about lost hello" << endl;
+            cout << "My peer address " << getPeerIP() << ":" << getPeerPort();
             SendStream("hello");
             SendStream("4" + getPeerIP() + "/" + getPeerPort(), false);
             break;

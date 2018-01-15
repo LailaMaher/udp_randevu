@@ -49,7 +49,7 @@ string User::getIP() {
 
 string User::getPort() {
     char port[128];
-    sprintf(port, "%u", address.sin_port);
+    sprintf(port, "%u", ntohs(address.sin_port));
     string port_s(port);
     return port_s;
 }

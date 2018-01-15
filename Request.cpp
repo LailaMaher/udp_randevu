@@ -25,13 +25,15 @@ char Request::getCode() const{
 
 string Request::getIP() const{
     string ip(inet_ntoa(address.sin_addr));
+    cout << "Request IP " << ip << endl;
     return ip;
 }
 
 string Request::getPort() const{
     char port[128];
-    sprintf(port, "%u", address.sin_port);
+    sprintf(port, "%u", ntohs(address.sin_port));
     string port_s(port);
+    cout << "Request Port" << port_s << endl;
     return port_s;
 }
 
