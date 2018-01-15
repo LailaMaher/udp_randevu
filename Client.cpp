@@ -135,8 +135,8 @@ void Client::handleIncomingRequest(Request* new_request){
 
         case '2':
             cout << "Sender get peer IP" << endl;
-            cout << "My peer address " << getPeerIP() << ":" << getPeerPort();
             setPeerAddress(new_request->getBody());
+            cout << "My peer address " << getPeerIP() << ":" << getPeerPort() << endl;
             SendStream("hello");
             SendStream("3" + getPeerIP() + "/" + getPeerPort(), false);
             break;
