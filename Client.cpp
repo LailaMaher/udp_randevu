@@ -5,8 +5,9 @@
 #include "Client.h"
 
 
-Client::Client(int PORT_NUM){
+Client::Client(int PORT_NUM, int SERV_PORT_NUM){
     this->PORT_NUM = PORT_NUM;
+    this->SERV_PORT_NUM = SERV_PORT_NUM;
     setServer();
     CreateSocket();
 }
@@ -19,7 +20,7 @@ void Client::setServer(){
           (char *)&server_address.sin_addr.s_addr,
           server->h_length);
 
-    server_address.sin_port = htons(PORT_NUM);
+    server_address.sin_port = htons(SERV_PORT_NUM);
 }
 
 void Client::setAddress(){

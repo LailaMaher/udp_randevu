@@ -21,7 +21,7 @@ int main(int argc, char const *argv[])
 {
 
     pthread_t pid1, pid2;
-    Client C(atoi(argv[1]));
+    Client C(atoi(argv[2]), atoi(argv[1]));
     int err;
 
     C.SendStream("1", false);
