@@ -35,7 +35,7 @@ sockaddr* Client::getAddress() const{
 
 void Client::CreateSocket(){
 
-    setDescriptor(socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP));
+    setDescriptor(socket(AF_INET, SOCK_DGRAM, 0));
     setAddress();
     if( bind(getDescriptor(), (struct sockaddr *)&address, sizeof(address)) < 0 )
         perror("BIND ERROR");
@@ -85,7 +85,7 @@ void Client::setPeerAddress(string iport){
 
     string ip = iport.substr(0, del);
     string portnum = iport.substr(del + 1, iport.length() - del - 1);
-
+    cout << "set peer address" << ip << ":" << portnum << endl;
     peer_address.sin_family = AF_INET;
 
     const char *cip = ip.c_str();
