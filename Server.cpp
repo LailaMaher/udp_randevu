@@ -46,9 +46,10 @@ void Server::createSocket(int p){
 
 User* Server::getByIPORT(string ip, string port){
     pthread_mutex_lock(&users_mutex);
-
+    cout << "Get By IP:Port" << endl;
     for(int i=0; i<current_users; i++){
-        if(ip.compare(users[i]->getIP()) == 0 && port.compare(users[i]->getPort()) == 0){
+        cout << "users[" << i << "] IP:Port" << users[i]->getIP() << ":" << users[i]->getPort() << endl;
+        if(ip == users[i]->getIP() && port == users[i]->getPort()){
             pthread_mutex_unlock(&users_mutex);
             return users[i];
         }

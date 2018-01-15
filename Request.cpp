@@ -33,7 +33,7 @@ string Request::getPort() const{
     char port[128];
     sprintf(port, "%u", ntohs(address.sin_port));
     string port_s(port);
-    cout << "Request Port" << port_s << endl;
+    cout << "Request Port " << port_s << endl;
     return port_s;
 }
 
