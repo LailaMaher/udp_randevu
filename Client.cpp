@@ -119,7 +119,7 @@ string Client::getPeerIP() const{
 
 string Client::getPeerPort() const{
     char port[128];
-    sprintf(port, "%u", ntohs(address.sin_port));
+    sprintf(port, "%u", ntohs(peer_address.sin_port));
     string port_s(port);
     return port_s;
 }
