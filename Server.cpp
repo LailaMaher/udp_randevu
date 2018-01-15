@@ -177,6 +177,17 @@ void Server::HandleRequest(Request* new_request){
             peer->writeToClient("5");
             break;
 
+        case '5':
+            del = new_request->getBody().find('/');
+
+            peer_IP = new_request->getBody().substr(0, del);
+            peer_PORT = new_request->getBody().substr(del + 1, new_request->getBody().length() - del - 1);
+
+            peer = getByIPORT(peer_IP, peer_PORT);
+            peer->writeToClient("6");
+
+            break;
+
         default:
             cout << "invalid token" << endl;
             cout << "code :" << new_request->getCode() << endl;

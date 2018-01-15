@@ -155,8 +155,18 @@ void Client::handleIncomingRequest(Request* new_request){
 
         case '5':
             cout << "server informs sender that receiver sends a hello" << endl;
+            SendStream("5" + getPeerIP() + "/" + getPeerPort(), false);
             SendStream("This is the sender");
+            SendStream("This is the sender again");
+            SendStream("This is the sender again and again");
             break;
+
+        case '6':
+            SendStream("This is the receiver");
+            SendStream("This is the receiver again");
+            SendStream("This is the receiver again and again");
+            break;
+
         default:
             cout << new_request->getCode() << new_request->getBody() << endl;
             break;

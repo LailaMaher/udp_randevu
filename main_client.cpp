@@ -4,7 +4,6 @@
 
 #include "Client.h"
 
-
 void* StartConnection(void* client_v){
 
     Client* client = (Client*)client_v;
