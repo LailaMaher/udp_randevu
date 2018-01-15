@@ -70,6 +70,10 @@ void User::connectToPeer(User* peer){
         setBusy(true);
         peer->setBusy(true);
 
+        cout << "Connect to peer function" << endl;
+        cout << "2" + peer->getIP() + "/" + peer->getPort() << endl;
+        cout << "3" + getIP() + "/" + getPort();
+
         writeToClient("2" + peer->getIP() + "/" + peer->getPort());
         peer->writeToClient("3" + getIP() + "/" + getPort());
 
