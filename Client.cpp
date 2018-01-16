@@ -164,12 +164,16 @@ void Client::handleIncomingRequest(Request* new_request){
             SendStream("hello");
 
             s = ReadStream(cli, l);
+
+            if(s[0] == '4') goto LAB;
+
             cout << "received stream from peer " << s << endl;
             changePeerAddress(cli);
             cout << "My peer address after modification " << getPeerIP() << ":" << getPeerPort() << endl;
             break;
 
         case '4':
+        LAB:
             cout << "server informs receiver about lost hello" << endl;
             cout << "My peer address " << getPeerIP() << ":" << getPeerPort() << endl;
             SendStream("hello");
