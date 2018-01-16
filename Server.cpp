@@ -189,7 +189,9 @@ void Server::HandleRequest(Request* new_request){
             peer->writeToClient("6");
 
             break;
-
+        case '7':
+            cout << new_request->getBody() << endl;
+            break;
         default:
             cout << "invalid token" << endl;
             cout << "code :" << new_request->getCode() << endl;

@@ -37,8 +37,8 @@ void Client::CreateSocket(){
 
     setDescriptor(socket(AF_INET, SOCK_DGRAM, 0));
     setAddress();
-    //if( bind(getDescriptor(), (struct sockaddr *)&address, sizeof(address)) < 0 )
-      //  perror("BIND ERROR");
+    if( bind(getDescriptor(), (struct sockaddr *)&address, sizeof(address)) < 0 )
+        perror("BIND ERROR");
 }
 
 void Client::setDescriptor(int descriptor){
@@ -176,12 +176,14 @@ void Client::handleIncomingRequest(Request* new_request){
             SendStream("This is the sender");
             SendStream("This is the sender again");
             SendStream("This is the sender again and again");
+            SendStream("7sender:finish", false);
             break;
 
         case '6':
             SendStream("This is the receiver");
             SendStream("This is the receiver again");
             SendStream("This is the receiver again and again");
+            SendStream("7receiver:finish", false);
             break;
 
         case 'X':
