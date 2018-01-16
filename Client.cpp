@@ -154,21 +154,19 @@ void Client::handleIncomingRequest(Request* new_request){
             cout << "Sender get peer IP" << endl;
             setPeerAddress(new_request->getBody());
             cout << "My peer address " << getPeerIP() << ":" << getPeerPort() << endl;
-            SendStream("hello");
+            SendStream("hello"); // this will succeed if the behind NAT initiates but not true if the known initiates
             SendStream("3" + getPeerIP() + "/" + getPeerPort(), false);
             break;
 
         case '3':
             cout << "receiver get peer IP" << endl;
             setPeerAddress(new_request->getBody());
+            SendStream("hello");
+
             s = ReadStream(cli, l);
-            //SendStream("leeh??");
             cout << "received stream from peer " << s << endl;
-            cout << "Real peer address " << inet_ntoa(cli.sin_addr) << ":" <<  ntohs(cli.sin_port) << endl;
-            cout << "Real peer address " << cli.sin_addr.s_addr << ":" <<  cli.sin_port << endl;
             changePeerAddress(cli);
             cout << "My peer address after modification " << getPeerIP() << ":" << getPeerPort() << endl;
-
             break;
 
         case '4':
@@ -179,6 +177,11 @@ void Client::handleIncomingRequest(Request* new_request){
             break;
 
         case '5':
+
+            s = ReadStream(cli, l);
+            cout << "received stream from peer " << s << endl;
+            changePeerAddress(cli);
+            cout << "My peer address after modification " << getPeerIP() << ":" << getPeerPort() << endl;
             cout << "server informs sender that receiver sends a hello" << endl;
             SendStream("5" + getPeerIP() + "/" + getPeerPort(), false);
             SendStream("This is the sender");
