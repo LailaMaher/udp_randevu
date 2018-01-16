@@ -75,6 +75,10 @@ string Client::ReadStream(struct sockaddr_in& cli, socklen_t& l){
     char buffer[1024];
     if( recvfrom(getDescriptor(), buffer, 1023, 0, (struct sockaddr*)&cli, &l) < 0)
         perror("READ STREAM FAILED");
+
+    cout << "read stream " << inet_ntoa(cli.sin_addr) << ":" <<  ntohs(cli.sin_port) << endl;
+    cout << "read stream " << cli.sin_addr.s_addr << ":" <<  cli.sin_port << endl;
+
     string data(buffer);
     return data;
 }
@@ -137,7 +141,7 @@ string Client::getPeerPort() const{
 void Client::handleIncomingRequest(Request* new_request){
 
     char token = new_request->getCode();
-    sockaddr_in cli;
+    struct sockaddr_in cli;
     socklen_t l;
     string s;
 
