@@ -49,7 +49,7 @@ User* Server::getByIPORT(string ip, string port){
     cout << "Get By IP:Port" << endl;
     for(int i=0; i<current_users; i++){
         cout << "users[" << i << "] IP:Port" << users[i]->getIP() << ":" << users[i]->getPort() << endl;
-        if(ip == users[i]->getIP() && port == users[i]->getPort()){
+        if(ip == users[i]->getIP() /* && port == users[i]->getPort()*/){
             pthread_mutex_unlock(&users_mutex);
             return users[i];
         }

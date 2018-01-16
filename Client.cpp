@@ -159,7 +159,8 @@ void Client::handleIncomingRequest(Request* new_request){
             setPeerAddress(new_request->getBody());
             s = ReadStream(cli, l);
             cout << "received stream from peer " << s << endl;
-            cout << "Real peer address " << inet_ntoa(cli.sin_addr) << ":" <<  ntohs(peer_address.sin_port) << endl;
+            cout << "Real peer address " << inet_ntoa(cli.sin_addr) << ":" <<  ntohs(cli.sin_port) << endl;
+            cout << "Real peer address " << cli.sin_addr.s_addr << ":" <<  cli.sin_port << endl;
             changePeerAddress(cli);
             cout << "My peer address after modification " << getPeerIP() << ":" << getPeerPort() << endl;
             break;
