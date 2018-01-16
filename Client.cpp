@@ -71,7 +71,7 @@ void Client::SendStream(string data, bool DATA){
 
 }
 
-string Client::ReadStream(struct sockaddr_in& cli, socklen_t& l){
+string Client::ReadStream(SOCKADDR_IN& cli, socklen_t& l){
     char buffer[1024];
     if( recvfrom(getDescriptor(), buffer, 1023, 0, (struct sockaddr*)&cli, &l) < 0)
         perror("READ STREAM FAILED");
@@ -103,7 +103,7 @@ void Client::setPeerAddress(string iport){
 }
 
 
-void Client::changePeerAddress(struct sockaddr_in& new_addr) {
+void Client::changePeerAddress(SOCKADDR_IN& new_addr) {
     peer_address.sin_addr.s_addr = new_addr.sin_addr.s_addr;
     peer_address.sin_port = new_addr.sin_port;
 }
@@ -141,9 +141,10 @@ string Client::getPeerPort() const{
 void Client::handleIncomingRequest(Request* new_request){
 
     char token = new_request->getCode();
-    struct sockaddr_in cli;
+    SOCKADDR_IN cli;
     socklen_t l;
     string s;
+    char buffer[1024] = "this is a buffer :D";
 
     switch(token){
         case '1':
@@ -162,6 +163,10 @@ void Client::handleIncomingRequest(Request* new_request){
             cout << "receiver get peer IP" << endl;
             setPeerAddress(new_request->getBody());
             s = ReadStream(cli, l);
+
+            if( sendto(getDescriptor(), buffer, 1023, 0, (struct sockaddr*)&cli, sizeof(cli)) < 0 )
+                perror("SEND STREAM TO PEER FAILED");
+
             cout << "received stream from peer " << s << endl;
             cout << "Real peer address " << inet_ntoa(cli.sin_addr) << ":" <<  ntohs(cli.sin_port) << endl;
             cout << "Real peer address " << cli.sin_addr.s_addr << ":" <<  cli.sin_port << endl;
