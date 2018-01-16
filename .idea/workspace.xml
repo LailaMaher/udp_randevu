@@ -13,9 +13,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e51517c-58ce-4b3b-afe4-168d125ca2cd" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/Client.cpp" afterPath="$PROJECT_DIR$/Client.cpp" />
-      <change beforePath="$PROJECT_DIR$/Client.h" afterPath="$PROJECT_DIR$/Client.h" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -71,8 +69,8 @@
       <file leaf-file-name="Client.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Client.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="157" column="12" lean-forward="true" selection-start-line="157" selection-start-column="12" selection-end-line="157" selection-end-column="12" />
+            <state relative-caret-position="308">
+              <caret line="181" column="12" lean-forward="true" selection-start-line="181" selection-start-column="12" selection-end-line="181" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -231,12 +229,12 @@
       <workItem from="1515997784106" duration="45000" />
       <workItem from="1515997960002" duration="11564000" />
       <workItem from="1516027121975" duration="5236000" />
-      <workItem from="1516084418256" duration="888000" />
+      <workItem from="1516084418256" duration="1372000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21529000" />
+    <option name="totallyTimeSpent" value="22013000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-4" width="1303" height="780" extended-state="7" />
@@ -680,8 +678,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Client.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="157" column="12" lean-forward="true" selection-start-line="157" selection-start-column="12" selection-end-line="157" selection-end-column="12" />
+        <state relative-caret-position="308">
+          <caret line="181" column="12" lean-forward="true" selection-start-line="181" selection-start-column="12" selection-end-line="181" selection-end-column="12" />
           <folding />
         </state>
       </provider>

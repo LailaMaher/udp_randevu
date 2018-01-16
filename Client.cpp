@@ -156,16 +156,16 @@ void Client::handleIncomingRequest(Request* new_request){
         case '3':
             cout << "receiver get peer IP" << endl;
             setPeerAddress(new_request->getBody());
-            break;
-
-        case '4':
-            cout << "server informs receiver about lost hello" << endl;
-            cout << "My peer address " << getPeerIP() << ":" << getPeerPort() << endl;
             s = ReadStream(cli, l);
             cout << "received stream from peer " << s << endl;
             cout << "Real peer address " << inet_ntoa(cli.sin_addr) << ":" <<  ntohs(peer_address.sin_port) << endl;
             changePeerAddress(cli);
             cout << "My peer address after modification " << getPeerIP() << ":" << getPeerPort() << endl;
+            break;
+
+        case '4':
+            cout << "server informs receiver about lost hello" << endl;
+            cout << "My peer address " << getPeerIP() << ":" << getPeerPort() << endl;
             SendStream("hello");
             SendStream("4" + getPeerIP() + "/" + getPeerPort(), false);
             break;
