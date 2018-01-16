@@ -104,10 +104,9 @@ void Client::setPeerAddress(string iport){
 
 
 void Client::changePeerAddress(SOCKADDR_IN& new_addr) {
-    peer_address.sin_addr.s_addr = new_addr.sin_addr.s_addr;
-    peer_address.sin_port = new_addr.sin_port;
+    memset(&peer_address, 0, sizeof(peer_address));
+    peer_address = new_addr;
 }
-
 
 
 Request Client::AcceptRequest(){
@@ -162,11 +161,9 @@ void Client::handleIncomingRequest(Request* new_request){
         case '3':
             cout << "receiver get peer IP" << endl;
             setPeerAddress(new_request->getBody());
-
             s = ReadStream(cli, l);
             changePeerAddress(cli);
             SendStream("leeh??");
-
 //            if( sendto(getDescriptor(), buffer, 1023, 0, (struct sockaddr*)&cli, sizeof(cli)) < 0 )
 //                perror("SEND STREAM TO PEER FAILED");
 
