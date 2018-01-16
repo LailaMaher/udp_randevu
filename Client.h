@@ -26,9 +26,10 @@ public:
     int getDescriptor() const;
 
     void SendStream(string, bool = true);
-    string ReadStream();
+    string ReadStream(struct sockaddr_in&, socklen_t&);
 
     void setPeerAddress(string);
+    void changePeerAddress(struct sockaddr_in);
     string getPeerIP() const;
     string getPeerPort() const;
 
