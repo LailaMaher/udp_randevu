@@ -99,8 +99,9 @@ void Client::setPeerAddress(string iport){
 }
 
 
-void Client::changePeerAddress(struct sockaddr_in new_addr) {
-    peer_address = new_addr;
+void Client::changePeerAddress(struct sockaddr_in& new_addr) {
+    peer_address.sin_addr.s_addr = new_addr.sin_addr.s_addr;
+    peer_address.sin_port = new_addr.sin_port;
 }
 
 

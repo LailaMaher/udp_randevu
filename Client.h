@@ -29,7 +29,7 @@ public:
     string ReadStream(struct sockaddr_in&, socklen_t&);
 
     void setPeerAddress(string);
-    void changePeerAddress(struct sockaddr_in);
+    void changePeerAddress(struct sockaddr_in&);
     string getPeerIP() const;
     string getPeerPort() const;
 
