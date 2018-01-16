@@ -162,15 +162,13 @@ void Client::handleIncomingRequest(Request* new_request){
             cout << "receiver get peer IP" << endl;
             setPeerAddress(new_request->getBody());
             s = ReadStream(cli, l);
-            changePeerAddress(cli);
-            SendStream("leeh??");
-//            if( sendto(getDescriptor(), buffer, 1023, 0, (struct sockaddr*)&cli, sizeof(cli)) < 0 )
-//                perror("SEND STREAM TO PEER FAILED");
-
+            //SendStream("leeh??");
             cout << "received stream from peer " << s << endl;
             cout << "Real peer address " << inet_ntoa(cli.sin_addr) << ":" <<  ntohs(cli.sin_port) << endl;
             cout << "Real peer address " << cli.sin_addr.s_addr << ":" <<  cli.sin_port << endl;
+            changePeerAddress(cli);
             cout << "My peer address after modification " << getPeerIP() << ":" << getPeerPort() << endl;
+
             break;
 
         case '4':
