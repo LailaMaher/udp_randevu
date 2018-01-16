@@ -154,39 +154,24 @@ void Client::handleIncomingRequest(Request* new_request){
             cout << "Sender get peer IP" << endl;
             setPeerAddress(new_request->getBody());
             cout << "My peer address " << getPeerIP() << ":" << getPeerPort() << endl;
-            SendStream("hello"); // this will succeed if the behind NAT initiates but not true if the known initiates
+            SendStream("X"); // this will succeed if the behind NAT initiates but not true if the public initiates
             SendStream("3" + getPeerIP() + "/" + getPeerPort(), false);
             break;
 
         case '3':
             cout << "receiver get peer IP" << endl;
             setPeerAddress(new_request->getBody());
-            SendStream("hello");
-
-            s = ReadStream(cli, l);
-
-            if(s[0] == '4') goto LAB;
-
-            cout << "received stream from peer " << s << endl;
-            changePeerAddress(cli);
-            cout << "My peer address after modification " << getPeerIP() << ":" << getPeerPort() << endl;
+            SendStream("X");
             break;
 
         case '4':
-        LAB:
             cout << "server informs receiver about lost hello" << endl;
             cout << "My peer address " << getPeerIP() << ":" << getPeerPort() << endl;
-            SendStream("hello");
             SendStream("4" + getPeerIP() + "/" + getPeerPort(), false);
             break;
 
         case '5':
 
-            s = ReadStream(cli, l);
-            cout << "received stream from peer " << s << endl;
-            changePeerAddress(cli);
-            cout << "My peer address after modification " << getPeerIP() << ":" << getPeerPort() << endl;
-            cout << "server informs sender that receiver sends a hello" << endl;
             SendStream("5" + getPeerIP() + "/" + getPeerPort(), false);
             SendStream("This is the sender");
             SendStream("This is the sender again");
@@ -197,6 +182,11 @@ void Client::handleIncomingRequest(Request* new_request){
             SendStream("This is the receiver");
             SendStream("This is the receiver again");
             SendStream("This is the receiver again and again");
+            break;
+
+        case 'X':
+            cout << "Received xXx" << endl;
+            changePeerAddress(new_request->getAddress());
             break;
 
         default:

@@ -37,6 +37,6 @@ string Request::getPort() const{
     return port_s;
 }
 
-SOCKADDR_IN Request::getAddress() const{
+sockaddr_in & Request::getAddress() {
     return address;
 }

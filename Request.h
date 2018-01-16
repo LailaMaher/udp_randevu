@@ -18,7 +18,8 @@ public:
     Request(SOCKADDR_IN, string);
 
     string getBody() const;
-    SOCKADDR_IN getAddress() const;
+
+    sockaddr_in & getAddress();
     char getCode() const;
     string getIP() const;
     string getPort() const;
