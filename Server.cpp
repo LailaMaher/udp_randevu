@@ -191,6 +191,8 @@ void Server::HandleRequest(Request* new_request){
             break;
         case '7':
             cout << new_request->getBody() << endl;
+            client = getByIPORT(new_request->getIP(), new_request->getPort());
+            client->writeToClient("8server:finish");
             break;
         default:
             cout << "invalid token" << endl;
