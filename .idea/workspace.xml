@@ -14,8 +14,8 @@
   <component name="ChangeListManager">
     <list default="true" id="4e51517c-58ce-4b3b-afe4-168d125ca2cd" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Client.cpp" afterPath="$PROJECT_DIR$/Client.cpp" />
-      <change beforePath="$PROJECT_DIR$/Client.h" afterPath="$PROJECT_DIR$/Client.h" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/udp_randevo_client.dir/Client.cpp.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/udp_randevo_client.dir/Client.cpp.o" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/udp_randevo_client" afterPath="$PROJECT_DIR$/cmake-build-debug/udp_randevo_client" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -71,8 +71,8 @@
       <file leaf-file-name="Client.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Client.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="172" column="0" lean-forward="true" selection-start-line="172" selection-start-column="0" selection-end-line="172" selection-end-column="0" />
+            <state relative-caret-position="38">
+              <caret line="153" column="17" lean-forward="true" selection-start-line="153" selection-start-column="17" selection-end-line="153" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -241,7 +241,7 @@
       <workItem from="1515997784106" duration="45000" />
       <workItem from="1515997960002" duration="11564000" />
       <workItem from="1516027121975" duration="5236000" />
-      <workItem from="1516084418256" duration="3391000" />
+      <workItem from="1516084418256" duration="3456000" />
     </task>
     <task id="LOCAL-00001" summary="print">
       <created>1516086803900</created>
@@ -271,18 +271,25 @@
       <option name="project" value="LOCAL" />
       <updated>1516087318474</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="modify">
+      <created>1516087829784</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1516087829784</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24032000" />
+    <option name="totallyTimeSpent" value="24097000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-4" width="1303" height="780" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2236741" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2236741" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33033034" sideWeight="0.49730977" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33033034" sideWeight="0.49730977" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28742516" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32882884" sideWeight="0.50269026" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -308,7 +315,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="print" />
-    <option name="LAST_COMMIT_MESSAGE" value="print" />
+    <MESSAGE value="modify" />
+    <option name="LAST_COMMIT_MESSAGE" value="modify" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -722,8 +730,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Client.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="172" column="0" lean-forward="true" selection-start-line="172" selection-start-column="0" selection-end-line="172" selection-end-column="0" />
+        <state relative-caret-position="38">
+          <caret line="153" column="17" lean-forward="true" selection-start-line="153" selection-start-column="17" selection-end-line="153" selection-end-column="17" />
           <folding />
         </state>
       </provider>
