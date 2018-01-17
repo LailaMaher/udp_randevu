@@ -154,10 +154,10 @@ void Client::handleIncomingRequest(Request* new_request){
             cout << "Sender get peer IP" << endl;
             setPeerAddress(new_request->getBody());
 
-            cout << "\t\t --- STUN CLIENT TO ---" << getPeerIP() << ":7878" << endl;
-            s = "./stunclient " + getPeerIP() + " 7878";
+            cout << "\t\t --- STUN CLIENT TO ---" << getPeerIP() << ":7800" << endl;
+            s = "./stunclient " + getPeerIP() + " 7800";
             system(s.c_str());
-            cout << "\t\t --- END OF STUN TO ---" << getPeerIP() << ":7878" << endl;
+            cout << "\t\t --- END OF STUN TO ---" << getPeerIP() << ":7800" << endl;
 
 
             cout << "My peer address " << getPeerIP() << ":" << getPeerPort() << endl;
