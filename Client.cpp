@@ -5,10 +5,11 @@
 #include "Client.h"
 
 
-Client::Client(int PORT_NUM, int SERV_PORT_NUM, int OTHER_PORT){
-    this->PORT_NUM = PORT_NUM;
+Client::Client(int SERV_PORT_NUM, int OTHER_PORT, int OTHER_OTHER_PORT){
+    //this->PORT_NUM = PORT_NUM;
     this->SERV_PORT_NUM = SERV_PORT_NUM;
     this->OTHER_PORT = OTHER_PORT;
+    this->OTHER_OTHER_PORT = OTHER_OTHER_PORT;
     setServer();
     CreateSocket();
 }
@@ -23,8 +24,12 @@ void Client::setServer(){
 
     server_address.sin_port = htons(SERV_PORT_NUM);
 
-    other_address.sin_family = AF_INET;
+    /*
+     * Second server
+     */
 
+
+    other_address.sin_family = AF_INET;
 
     struct hostent* other = gethostbyname("165.227.175.2");
     bcopy((char *)other->h_addr,
@@ -33,6 +38,21 @@ void Client::setServer(){
 
     other_address.sin_port = htons(OTHER_PORT);
 
+
+
+    /*
+     * third server
+     */
+
+
+    other_other_address.sin_family = AF_INET;
+
+    struct hostent* other_other = gethostbyname("165.227.175.2");
+    bcopy((char *)other_other->h_addr,
+          (char *)&other_other_address.sin_addr.s_addr,
+          other_other->h_length);
+
+    other_other_address.sin_port = htons(OTHER_OTHER_PORT);
 
 }
 
@@ -69,20 +89,21 @@ void Client::SendStream(string data, bool DATA){
     strcpy(buffer, data.c_str());
 
     if(DATA){
-        cout << "Data sent to peer" << endl;
-        cout << "Peer IP:Port " << peer_address.sin_addr.s_addr << ":" << peer_address.sin_port << endl;
-        cout << "Peer IP:Port " << inet_ntoa(peer_address.sin_addr) << ":" << ntohs(peer_address.sin_port) << endl;
-
+        cout << "\t\t\t -- Data --to--> Peer" << endl;
         if( sendto(getDescriptor(), buffer, 1023, 0, (struct sockaddr*)&peer_address, sizeof(peer_address)) < 0 )
             perror("SEND STREAM TO PEER FAILED");
     }
     else {
-        cout << "Control to server 1" << endl;
+        cout << "\t\t\t -- Data --to--> Server[1]" << endl;
         if( sendto(getDescriptor(), buffer, 1023, 0, (struct sockaddr*)&server_address, sizeof(server_address)) < 0 )
             perror("SEND STREAM TO SERVER FAILED");
 
-        cout << "Control to server 2" << endl;
+        cout << "\t\t\t -- Data --to--> Server[2]" << endl;
         if( sendto(getDescriptor(), buffer, 1023, 0, (struct sockaddr*)&other_address, sizeof(other_address)) < 0 )
+            perror("SEND STREAM TO SERVER FAILED");
+
+        cout << "\t\t\t -- Data --to--> Server[3]" << endl;
+        if( sendto(getDescriptor(), buffer, 1023, 0, (struct sockaddr*)&other_other_address, sizeof(other_other_address)) < 0 )
             perror("SEND STREAM TO SERVER FAILED");
     }
 
@@ -162,36 +183,39 @@ void Client::handleIncomingRequest(Request* new_request){
     string s;
     char buffer[1024] = "this is a buffer :D";
 
+
+    cout << "\t\t\t -- This is a request from " << new_request->getIP() << ":" << new_request->getPort() << "--" << endl;
+    cout << "\t\t\t -- request token " << token << endl;
+
     switch(token){
         case '1':
-            cout << "Connection to server succeed My Id[" << new_request->getBody() << "]" << endl;
+            cout << "\t\t Connection to server succeed My Id[" << new_request->getBody() << "]" << endl;
             break;
 
         case '2':
-            cout << "Sender get peer IP" << endl;
+            cout << "\t\tInitiator get peer IP-Port" << endl;
             setPeerAddress(new_request->getBody());
-            cout << "My peer address " << getPeerIP() << ":" << getPeerPort() << endl;
+            cout << "\t\t ===> My peer address [as received from server] " << getPeerIP() << ":" << getPeerPort() << endl;
             SendStream("X"); // this will succeed if the behind NAT initiates but not true if the public initiates
             SendStream("3" + getPeerIP() + "/" + getPeerPort(), false);
             break;
 
         case '3':
-            cout << "receiver get peer IP" << endl;
+            cout << "\t\tReceiver get peer IP-Port" << endl;
             setPeerAddress(new_request->getBody());
-            cout << "My peer address " << getPeerIP() << ":" << getPeerPort() << endl;
-
+            cout << "\t\t ===> My peer address [as received from server] " << getPeerIP() << ":" << getPeerPort() << endl;
             SendStream("X");
             break;
 
         case '4':
-            cout << "server informs receiver about lost hello" << endl;
-            cout << "My peer address " << getPeerIP() << ":" << getPeerPort() << endl;
+            cout << "\t\tServer informs Receiver about hello" << endl;
             SendStream("4" + getPeerIP() + "/" + getPeerPort(), false);
             break;
 
         case '5':
-
+            cout << "\t\tInitiator sending stream" << endl;
             SendStream("5" + getPeerIP() + "/" + getPeerPort(), false);
+            cout << "\t\t ===> My peer address [as received by 'X' sync msg]" << getPeerIP() << ":" << getPeerPort() << endl;
             SendStream("This is the sender");
             SendStream("This is the sender again");
             SendStream("This is the sender again and again");
@@ -199,6 +223,8 @@ void Client::handleIncomingRequest(Request* new_request){
             break;
 
         case '6':
+            cout << "\t\tReceiver sending stream" << endl;
+            cout << "\t\t ===> My peer address [as received by 'X' sync msg]" << getPeerIP() << ":" << getPeerPort() << endl;
             SendStream("This is the receiver");
             SendStream("This is the receiver again");
             SendStream("This is the receiver again and again");
@@ -206,7 +232,7 @@ void Client::handleIncomingRequest(Request* new_request){
             break;
 
         case 'X':
-            cout << "Received xXx" << endl;
+            cout << "\t\tReceived X" << endl;
             changePeerAddress(new_request->getAddress());
             break;
 

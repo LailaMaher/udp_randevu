@@ -46,8 +46,9 @@ void Server::createSocket(int p){
 
 User* Server::getByIPORT(string ip, string port){
     pthread_mutex_lock(&users_mutex);
+    cout << "\t\t Users Array" << endl;
     for(int i=0; i<current_users; i++){
-        cout << "users[" << i << "] IP:Port" << users[i]->getIP() << ":" << users[i]->getPort() << endl;
+        cout << "\t\t\tusers[" << i << "] IP:Port" << users[i]->getIP() << ":" << users[i]->getPort() << endl;
         if(ip == users[i]->getIP() /* && port == users[i]->getPort()*/){
             pthread_mutex_unlock(&users_mutex);
             return users[i];
@@ -71,9 +72,6 @@ Request* Server::AcceptRequest(){
     string data(buffer);
 
     Request* new_request = new Request(cli_address, data);
-
-    cout << "\t\t-----Accept Request-----" << endl;
-    cout << "Client IP:Port " << inet_ntoa(cli_address.sin_addr) << ":" << ntohs(cli_address.sin_port) << endl;
 
     return new_request;
 }
@@ -129,7 +127,6 @@ void Server::HandleRequest(Request* new_request){
     cout << endl << "\t\t-----Handle new request-----" << endl;
 
     char token = new_request->getCode();
-    cout << "request token " << token << endl;
 
     size_t del;
     string peer_ID, peer_IP, peer_PORT;
@@ -137,15 +134,19 @@ void Server::HandleRequest(Request* new_request){
     User* client = NULL;
     User* new_user = NULL;
 
+
+    cout << "\t\t\t -- This is a request from " << new_request->getIP() << ":" << new_request->getPort() << "--" << endl;
+    cout << "\t\t\t -- request token " << token << endl;
+
     switch(token){
         case '1':
-            cout << "New Connection To Server" << endl;
+            cout << "\t\tNew Connection To Server" << endl;
             new_user = createUser(new_request);
             addUser(new_user);
             break;
 
         case '2':
-            cout << "Initiate Connection with peer" << endl;
+            cout << "\t\tInitiate Connection with peer" << endl;
             peer_ID = new_request->getBody();
             peer = isExist(stoi(peer_ID));
             if(peer != NULL){
@@ -155,7 +156,7 @@ void Server::HandleRequest(Request* new_request){
             break;
 
         case '3':
-            cout << "Acknowledge from sender sending hello to receiver" << endl;
+            cout << "\t\tAcknowledge from sender sending hello to receiver" << endl;
             del = new_request->getBody().find('/');
 
             peer_IP = new_request->getBody().substr(0, del);
@@ -166,7 +167,7 @@ void Server::HandleRequest(Request* new_request){
             break;
 
         case '4':
-            cout << "Acknowledge from receiver sending hello to initiator" << endl;
+            cout << "\t\tAcknowledge from receiver sending hello to initiator" << endl;
             del = new_request->getBody().find('/');
 
             peer_IP = new_request->getBody().substr(0, del);
@@ -191,6 +192,7 @@ void Server::HandleRequest(Request* new_request){
             client = getByIPORT(new_request->getIP(), new_request->getPort());
             client->writeToClient("8server:finish");
             break;
+
         default:
             cout << "invalid token" << endl;
             cout << "code :" << new_request->getCode() << endl;
