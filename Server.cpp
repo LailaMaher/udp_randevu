@@ -46,7 +46,6 @@ void Server::createSocket(int p){
 
 User* Server::getByIPORT(string ip, string port){
     pthread_mutex_lock(&users_mutex);
-    cout << "Get By IP:Port" << endl;
     for(int i=0; i<current_users; i++){
         cout << "users[" << i << "] IP:Port" << users[i]->getIP() << ":" << users[i]->getPort() << endl;
         if(ip == users[i]->getIP() /* && port == users[i]->getPort()*/){
@@ -73,9 +72,7 @@ Request* Server::AcceptRequest(){
 
     Request* new_request = new Request(cli_address, data);
 
-    cout << "Request created" << endl;
-
-    cout << "Client IP:Port " << cli_address.sin_addr.s_addr << ":" << cli_address.sin_port << endl;
+    cout << "\t\t-----Accept Request-----" << endl;
     cout << "Client IP:Port " << inet_ntoa(cli_address.sin_addr) << ":" << ntohs(cli_address.sin_port) << endl;
 
     return new_request;
@@ -129,7 +126,7 @@ User* Server::isExist(int ID){
 
 void Server::HandleRequest(Request* new_request){
 
-    cout << endl << "\t\t---Handle new request---" << endl;
+    cout << endl << "\t\t-----Handle new request-----" << endl;
 
     char token = new_request->getCode();
     cout << "request token " << token << endl;

@@ -153,15 +153,30 @@ void Client::handleIncomingRequest(Request* new_request){
         case '2':
             cout << "Sender get peer IP" << endl;
             setPeerAddress(new_request->getBody());
+
+            cout << "\t\t --- STUN CLIENT TO ---" << getPeerIP() << ":7878" << endl;
+            s = "./stunclient " + getPeerIP() + " 7878";
+            system(s.c_str());
+            cout << "\t\t --- END OF STUN TO ---" << getPeerIP() << ":7878" << endl;
+
+
             cout << "My peer address " << getPeerIP() << ":" << getPeerPort() << endl;
-            SendStream("X"); // this will succeed if the behind NAT initiates but not true if the public initiates
-            SendStream("3" + getPeerIP() + "/" + getPeerPort(), false);
+//            SendStream("X"); // this will succeed if the behind NAT initiates but not true if the public initiates
+//            SendStream("3" + getPeerIP() + "/" + getPeerPort(), false);
             break;
 
         case '3':
             cout << "receiver get peer IP" << endl;
             setPeerAddress(new_request->getBody());
-            SendStream("X");
+
+            cout << "\t\t --- STUN CLIENT TO ---" << getPeerIP() << ":7878" << endl;
+            s = "./stunclient " + getPeerIP() + " 7878";
+            system(s.c_str());
+            cout << "\t\t --- END OF STUN TO ---" << getPeerIP() << ":7878" << endl;
+
+            cout << "My peer address " << getPeerIP() << ":" << getPeerPort() << endl;
+
+            //SendStream("X");
             break;
 
         case '4':

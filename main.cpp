@@ -1,6 +1,11 @@
 
 #include "Server.h"
 
+void* STUN(void*){
+    system("./stunserver");
+    return NULL;
+}
+
 void* Work(void* user_v){
 
     Request* new_request = (Request*)user_v;
@@ -15,10 +20,11 @@ void* Work(void* user_v){
 
 int main(int argc, char const *argv[]) {
 
+    pthread_t pid_stun;
     pthread_t pid[100];
     int cnt = 0;
 
-
+    int err = pthread_create(&pid_stun, NULL, &STUN, NULL);
     Server* tcp = Server::instance();
     tcp->createSocket(atoi(argv[1]));
 
@@ -27,7 +33,7 @@ int main(int argc, char const *argv[]) {
     while(true){
 
         Request* new_request = tcp->AcceptRequest();
-        int err = pthread_create(&pid[cnt++], NULL, &Work, new_request);
+        err = pthread_create(&pid[cnt++], NULL, &Work, new_request);
 
     }
 

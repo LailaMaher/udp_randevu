@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../udp_randevo/.idea/udp_randevo_server.iml" filepath="$PROJECT_DIR$/../udp_randevo/.idea/udp_randevo_server.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/udp_randevu.iml" filepath="$PROJECT_DIR$/.idea/udp_randevu.iml" />
     </modules>
   </component>
