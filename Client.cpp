@@ -94,17 +94,15 @@ void Client::SendStream(string data, bool DATA){
             perror("SEND STREAM TO PEER FAILED");
     }
     else {
-        cout << "\t\t -- Data --to--> Server[1]" << endl;
-        if( sendto(getDescriptor(), buffer, 1023, 0, (struct sockaddr*)&server_address, sizeof(server_address)) < 0 )
-            perror("SEND STREAM TO SERVER FAILED");
 
-        cout << "\t\t -- Data --to--> Server[2]" << endl;
-        if( sendto(getDescriptor(), buffer, 1023, 0, (struct sockaddr*)&other_address, sizeof(other_address)) < 0 )
-            perror("SEND STREAM TO SERVER FAILED");
+        cout << "\t\t Data sent to servers" << endl;
+//        cout << "\t\t -- Data --to--> Server[1]" << endl;
+        sendto(descriptor, buffer, 1023, 0, (struct sockaddr*)&server_address, sizeof(server_address));
+//        cout << "\t\t -- Data --to--> Server[2]" << endl;
+        sendto(descriptor, buffer, 1023, 0, (struct sockaddr*)&other_address, sizeof(other_address));
+//        cout << "\t\t -- Data --to--> Server[3]" << endl;
+        sendto(descriptor, buffer, 1023, 0, (struct sockaddr*)&other_other_address, sizeof(other_other_address));
 
-        cout << "\t\t -- Data --to--> Server[3]" << endl;
-        if( sendto(getDescriptor(), buffer, 1023, 0, (struct sockaddr*)&other_other_address, sizeof(other_other_address)) < 0 )
-            perror("SEND STREAM TO SERVER FAILED");
     }
 
 }
