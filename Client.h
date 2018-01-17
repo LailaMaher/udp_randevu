@@ -9,14 +9,14 @@
 
 class Client {
 
-    int PORT_NUM, SERV_PORT_NUM;
+    int PORT_NUM, SERV_PORT_NUM, OTHER_PORT;
     int descriptor;
-    SOCKADDR_IN address, peer_address, server_address;
+    SOCKADDR_IN address, peer_address, server_address, other_address;
 
 
 public:
 
-    Client(int, int);
+    Client(int, int, int);
 
     void setServer();
     void CreateSocket();

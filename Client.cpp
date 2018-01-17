@@ -5,9 +5,10 @@
 #include "Client.h"
 
 
-Client::Client(int PORT_NUM, int SERV_PORT_NUM){
+Client::Client(int PORT_NUM, int SERV_PORT_NUM, int OTHER_PORT){
     this->PORT_NUM = PORT_NUM;
     this->SERV_PORT_NUM = SERV_PORT_NUM;
+    this->OTHER_PORT = OTHER_PORT;
     setServer();
     CreateSocket();
 }
@@ -21,6 +22,18 @@ void Client::setServer(){
           server->h_length);
 
     server_address.sin_port = htons(SERV_PORT_NUM);
+
+    other_address.sin_family = AF_INET;
+
+
+    struct hostent* other = gethostbyname("165.227.175.2");
+    bcopy((char *)other->h_addr,
+          (char *)&other_address.sin_addr.s_addr,
+          other->h_length);
+
+    other_address.sin_port = htons(OTHER_PORT);
+
+
 }
 
 void Client::setAddress(){
@@ -37,8 +50,8 @@ void Client::CreateSocket(){
 
     setDescriptor(socket(AF_INET, SOCK_DGRAM, 0));
     setAddress();
-    if( bind(getDescriptor(), (struct sockaddr *)&address, sizeof(address)) < 0 )
-        perror("BIND ERROR");
+//    if( bind(getDescriptor(), (struct sockaddr *)&address, sizeof(address)) < 0 )
+//        perror("BIND ERROR");
 }
 
 void Client::setDescriptor(int descriptor){
@@ -64,8 +77,12 @@ void Client::SendStream(string data, bool DATA){
             perror("SEND STREAM TO PEER FAILED");
     }
     else {
-        cout << "Control to server" << endl;
+        cout << "Control to server 1" << endl;
         if( sendto(getDescriptor(), buffer, 1023, 0, (struct sockaddr*)&server_address, sizeof(server_address)) < 0 )
+            perror("SEND STREAM TO SERVER FAILED");
+
+        cout << "Control to server 2" << endl;
+        if( sendto(getDescriptor(), buffer, 1023, 0, (struct sockaddr*)&other_address, sizeof(other_address)) < 0 )
             perror("SEND STREAM TO SERVER FAILED");
     }
 
@@ -153,30 +170,17 @@ void Client::handleIncomingRequest(Request* new_request){
         case '2':
             cout << "Sender get peer IP" << endl;
             setPeerAddress(new_request->getBody());
-
-            cout << "\t\t --- STUN CLIENT TO ---" << getPeerIP() << ":8349" << endl;
-            s = "./stunclient " + getPeerIP() + " 8349";
-            system(s.c_str());
-            cout << "\t\t --- END OF STUN TO ---" << getPeerIP() << ":8349" << endl;
-
-
             cout << "My peer address " << getPeerIP() << ":" << getPeerPort() << endl;
-//            SendStream("X"); // this will succeed if the behind NAT initiates but not true if the public initiates
-//            SendStream("3" + getPeerIP() + "/" + getPeerPort(), false);
+            SendStream("X"); // this will succeed if the behind NAT initiates but not true if the public initiates
+            SendStream("3" + getPeerIP() + "/" + getPeerPort(), false);
             break;
 
         case '3':
             cout << "receiver get peer IP" << endl;
             setPeerAddress(new_request->getBody());
-
-            cout << "\t\t --- STUN CLIENT TO ---" << getPeerIP() << ":8349" << endl;
-            s = "./stunclient " + getPeerIP() + " 8349";
-            system(s.c_str());
-            cout << "\t\t --- END OF STUN TO ---" << getPeerIP() << ":8349" << endl;
-
             cout << "My peer address " << getPeerIP() << ":" << getPeerPort() << endl;
 
-            //SendStream("X");
+            SendStream("X");
             break;
 
         case '4':
