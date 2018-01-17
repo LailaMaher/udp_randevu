@@ -37,8 +37,8 @@ void Client::CreateSocket(){
 
     setDescriptor(socket(AF_INET, SOCK_DGRAM, 0));
     setAddress();
-//    if( bind(getDescriptor(), (struct sockaddr *)&address, sizeof(address)) < 0 )
-//        perror("BIND ERROR");
+    if( bind(getDescriptor(), (struct sockaddr *)&address, sizeof(address)) < 0 )
+        perror("BIND ERROR");
 }
 
 void Client::setDescriptor(int descriptor){

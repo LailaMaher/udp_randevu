@@ -5,7 +5,7 @@
 #include "Client.h"
 
 void* STUN(void*){
-    system("./stunserver --primaryport 7878");
+    system("./stunserver --primaryport 7868");
     return NULL;
 }
 
