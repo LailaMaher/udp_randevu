@@ -124,7 +124,7 @@ User* Server::isExist(int ID){
 
 void Server::HandleRequest(Request* new_request){
 
-    cout << endl << "\t\t-----Handle new request-----" << endl;
+    cout << endl << "\t-----Handle new request-----" << endl;
 
     char token = new_request->getCode();
 
@@ -135,8 +135,8 @@ void Server::HandleRequest(Request* new_request){
     User* new_user = NULL;
 
 
-    cout << "\t\t\t -- This is a request from " << new_request->getIP() << ":" << new_request->getPort() << "--" << endl;
-    cout << "\t\t\t -- request token " << token << endl;
+    cout << "\t\t -- This is a request from " << new_request->getIP() << ":" << new_request->getPort() << "--" << endl;
+    cout << "\t\t -- request token " << token << endl;
 
     switch(token){
         case '1':
@@ -199,5 +199,5 @@ void Server::HandleRequest(Request* new_request){
             cout << "body :" << new_request->getBody() << endl;
             break;
     }
-
+    cout << endl << "\t----- END of Handle new request-----" << endl << endl << endl;
 }

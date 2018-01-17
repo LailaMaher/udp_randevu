@@ -89,20 +89,20 @@ void Client::SendStream(string data, bool DATA){
     strcpy(buffer, data.c_str());
 
     if(DATA){
-        cout << "\t\t\t -- Data --to--> Peer" << endl;
+        cout << "\t\t -- Data --to--> Peer" << endl;
         if( sendto(getDescriptor(), buffer, 1023, 0, (struct sockaddr*)&peer_address, sizeof(peer_address)) < 0 )
             perror("SEND STREAM TO PEER FAILED");
     }
     else {
-        cout << "\t\t\t -- Data --to--> Server[1]" << endl;
+        cout << "\t\t -- Data --to--> Server[1]" << endl;
         if( sendto(getDescriptor(), buffer, 1023, 0, (struct sockaddr*)&server_address, sizeof(server_address)) < 0 )
             perror("SEND STREAM TO SERVER FAILED");
 
-        cout << "\t\t\t -- Data --to--> Server[2]" << endl;
+        cout << "\t\t -- Data --to--> Server[2]" << endl;
         if( sendto(getDescriptor(), buffer, 1023, 0, (struct sockaddr*)&other_address, sizeof(other_address)) < 0 )
             perror("SEND STREAM TO SERVER FAILED");
 
-        cout << "\t\t\t -- Data --to--> Server[3]" << endl;
+        cout << "\t\t -- Data --to--> Server[3]" << endl;
         if( sendto(getDescriptor(), buffer, 1023, 0, (struct sockaddr*)&other_other_address, sizeof(other_other_address)) < 0 )
             perror("SEND STREAM TO SERVER FAILED");
     }
@@ -114,9 +114,6 @@ string Client::ReadStream(SOCKADDR_IN& cli, socklen_t& l){
     if( recvfrom(getDescriptor(), buffer, 1023, 0, (struct sockaddr*)&cli, &l) < 0)
         perror("READ STREAM FAILED");
 
-    cout << "read stream " << inet_ntoa(cli.sin_addr) << ":" <<  ntohs(cli.sin_port) << endl;
-    cout << "read stream " << cli.sin_addr.s_addr << ":" <<  cli.sin_port << endl;
-
     string data(buffer);
     return data;
 }
@@ -127,7 +124,6 @@ void Client::setPeerAddress(string iport){
 
     string ip = iport.substr(0, del);
     string portnum = iport.substr(del + 1, iport.length() - del - 1);
-    cout << "set peer address" << ip << ":" << portnum << endl;
     peer_address.sin_family = AF_INET;
 
     const char *cip = ip.c_str();
@@ -183,7 +179,7 @@ void Client::handleIncomingRequest(Request* new_request){
     string s;
     char buffer[1024] = "this is a buffer :D";
 
-
+    cout << "\t ---- Handle new request ---- " << endl;
     cout << "\t\t\t -- This is a request from " << new_request->getIP() << ":" << new_request->getPort() << "--" << endl;
     cout << "\t\t\t -- request token " << token << endl;
 
@@ -232,12 +228,14 @@ void Client::handleIncomingRequest(Request* new_request){
             break;
 
         case 'X':
-            cout << "\t\tReceived X" << endl;
+            cout << "\t\t Received X" << endl;
             changePeerAddress(new_request->getAddress());
             break;
 
         default:
-            cout << new_request->getCode() << new_request->getBody() << endl;
+            cout << "\t\t " <<new_request->getCode() << new_request->getBody() << endl;
             break;
     }
+
+    cout << "\t ---- END of handle new request -----" << endl << endl << endl;
 }
