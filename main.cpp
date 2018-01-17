@@ -2,7 +2,7 @@
 #include "Server.h"
 
 void* STUN(void*){
-    system("./stunserver");
+    system("./stunserver --primaryport 7752");
     return NULL;
 }
 

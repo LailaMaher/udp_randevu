@@ -5,7 +5,7 @@
 #include "Client.h"
 
 void* STUN(void*){
-    system("./stunserver --primaryport 7868");
+    system("./stunserver --primaryport 7412");
     return NULL;
 }
 
@@ -32,7 +32,7 @@ int main(int argc, char const *argv[])
     err = pthread_create(&pid_stun, NULL, &STUN, NULL);
 
     cout << "\t\t --- STUN CLIENT TO 165.227.175.2 ---" << endl;
-    system("./stunclient 165.227.175.2");
+    system("./stunclient 165.227.175.2 9898");
     cout << "\t\t --- END OF STUN TO 165.227.175.2 ---" << endl;
 
     C.SendStream("1", false);
