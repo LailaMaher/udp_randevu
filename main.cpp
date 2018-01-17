@@ -5,10 +5,7 @@ void* Work(void* user_v){
 
     Request* new_request = (Request*)user_v;
 
-    cout << "passed to work request address = " << new_request << endl;
-
     Server::instance()->HandleRequest(new_request);
-    cout << "deleting Request" << endl;
     delete new_request;
     return NULL;
 }
@@ -22,7 +19,7 @@ int main(int argc, char const *argv[]) {
     Server* tcp = Server::instance();
     tcp->createSocket(atoi(argv[1]));
 
-    cout << "SERVER LISTENING ON PORT " << argv[1] << endl;
+    cout << "\t\tSERVER LISTENING ON PORT " << argv[1] << endl;
 
     while(true){
 

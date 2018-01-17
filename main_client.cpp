@@ -9,7 +9,6 @@ void* StartConnection(void* client_v){
     Client* client = (Client*)client_v;
 
     int ID;
-    cout << "Enter the ID to connect to: " << endl;
     cin >> ID;
     client->SendStream("2" + to_string(ID), false);
 
@@ -21,7 +20,7 @@ int main(int argc, char const *argv[])
 
     pthread_t pid_stun;
     pthread_t pid1, pid2;
-    Client C(1414, atoi(argv[1]), atoi(argv[2]));
+    Client C(atoi(argv[1]), atoi(argv[2]), atoi(argv[3]));
     int err;
 
     C.SendStream("1", false);
