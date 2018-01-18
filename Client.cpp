@@ -236,6 +236,7 @@ void Client::handleIncomingRequest(Request* new_request){
         case 'X':
             cout << "\t\t Received X" << endl;
             changePeerAddress(new_request->getAddress());
+            SendStream("X");
             break;
 
         default:
