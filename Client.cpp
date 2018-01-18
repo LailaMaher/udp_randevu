@@ -264,6 +264,7 @@ void Client::handleIncomingRequest(Request* new_request){
 
 
             setPeerAddress(getPeerIP() + "/" + real_peerport);
+            SendStream("H--ELLO");
 
             for(uint16_t i = 65534; i > 0; i--) { // initiator[public] tries all ports
 
