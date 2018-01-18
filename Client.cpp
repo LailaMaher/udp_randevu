@@ -266,12 +266,12 @@ void Client::handleIncomingRequest(Request* new_request){
             setPeerAddress(getPeerIP() + "/" + real_peerport);
             SendStream("H--ELLO");
 
-            for(uint16_t i = 65534; i > 0; i--) { // initiator[public] tries all ports
-
-                if(i == stoi(real_peerport)) cout << "Sending to real port now" << endl;
-                setPeerAddress(getPeerIP() + "/" + to_string(i));
-                SendStream("X");
-            }
+//            for(uint16_t i = 65534; i > 0; i--) { // initiator[public] tries all ports
+//
+//                if(i == stoi(real_peerport)) cout << "Sending to real port now" << endl;
+//                setPeerAddress(getPeerIP() + "/" + to_string(i));
+//                SendStream("X");
+//            }
 
             SendStream("5" + getPeerIP() + "/" + original, false);
 //            SendStream("X");
