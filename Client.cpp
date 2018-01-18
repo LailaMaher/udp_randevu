@@ -247,6 +247,8 @@ void Client::handleIncomingRequest(Request* new_request){
         case '5':
             cout << "\t\tInitiator sending stream" << endl;
 
+            peer_address.sin_port = htons(stoi(real_peerport));
+            SendStream("X");
 
             for(uint16_t i = 0; i < 65535; i++) { // initiator[public] tries all ports
 
@@ -261,7 +263,7 @@ void Client::handleIncomingRequest(Request* new_request){
 //            SendStream("This is the sender");
 //            SendStream("This is the sender again");
 //            SendStream("This is the sender again and again");
-            SendStream("7sender:finish", false);
+//            SendStream("7sender:finish", false);
             break;
 
         case '6':
