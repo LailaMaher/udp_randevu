@@ -190,6 +190,7 @@ void Client::handleIncomingRequest(Request* new_request){
             setPeerAddress(new_request->getBody());
             cout << "\t\t ===> My peer address [as received from server] " << getPeerIP() << ":" << getPeerPort() << endl;
             original = getPeerIP();
+            cout << "original val " << original << endl;
             cout << "\t\t -- Data --to--> Peer [All ports]" << endl;
             for(uint16_t i = 0; i < 65535; i++) {
                 peer_address.sin_port = htons(i);
@@ -203,6 +204,7 @@ void Client::handleIncomingRequest(Request* new_request){
             cout << "\t\tReceiver get peer IP-Port" << endl;
             setPeerAddress(new_request->getBody());
             original = getPeerIP();
+            cout << "original val " << original << endl;
             cout << "\t\t ===> My peer address [as received from server] " << getPeerIP() << ":" << getPeerPort() << endl;
             for(uint16_t i = 0; i < 65535; i++) {
                 peer_address.sin_port = htons(i);
@@ -212,11 +214,13 @@ void Client::handleIncomingRequest(Request* new_request){
 
         case '4':
             cout << "\t\tServer informs Receiver about hello" << endl;
+            cout << "original val " << original << endl;
             SendStream("4" + getPeerIP() + "/" + original, false);
             break;
 
         case '5':
             cout << "\t\tInitiator sending stream" << endl;
+            cout << "original val " << original << endl;
             SendStream("5" + getPeerIP() + "/" + original, false);
             cout << "\t\t ===> My peer address [as received by 'X' sync msg]" << getPeerIP() << ":" << getPeerPort() << endl;
             SendStream("This is the sender");
