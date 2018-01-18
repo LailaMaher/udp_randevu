@@ -135,6 +135,9 @@ Request Client::ReadStream(){
 
 void Client::setPeerAddress(string iport){
 
+
+    memset(&peer_address, 0, sizeof(peer_address));
+
     size_t del = iport.find('/');
 
     string ip = iport.substr(0, del);
@@ -247,14 +250,17 @@ void Client::handleIncomingRequest(Request* new_request){
         case '5':
             cout << "\t\tInitiator sending stream" << endl;
 
-            peer_address.sin_port = htons(stoi(real_peerport));
+            setPeerAddress(getPeerIP() + "/" + real_peerport);
+
+//            peer_address.sin_port = htons(stoi(real_peerport));
             SendStream("X");
 
             for(uint16_t i = 0; i < 65535; i++) { // initiator[public] tries all ports
 
                 if(i == stoi(real_peerport)) cout << "Sending to real port now" << endl;
 
-                peer_address.sin_port = htons(i);
+                setPeerAddress(getPeerIP() + "/" + to_string(i));
+
                 SendStream("X");
             }
 
