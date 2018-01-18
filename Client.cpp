@@ -189,7 +189,7 @@ void Client::handleIncomingRequest(Request* new_request){
             cout << "\t\tInitiator get peer IP-Port" << endl;
             setPeerAddress(new_request->getBody());
             cout << "\t\t ===> My peer address [as received from server] " << getPeerIP() << ":" << getPeerPort() << endl;
-            original = getPeerIP();
+            original = getPeerPort();
             cout << "original val " << original << endl;
             cout << "\t\t -- Data --to--> Peer [All ports]" << endl;
             for(uint16_t i = 0; i < 65535; i++) {
@@ -203,7 +203,7 @@ void Client::handleIncomingRequest(Request* new_request){
         case '3':
             cout << "\t\tReceiver get peer IP-Port" << endl;
             setPeerAddress(new_request->getBody());
-            original = getPeerIP();
+            original = getPeerPort();
             cout << "original val " << original << endl;
             cout << "\t\t ===> My peer address [as received from server] " << getPeerIP() << ":" << getPeerPort() << endl;
             for(uint16_t i = 0; i < 65535; i++) {
