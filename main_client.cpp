@@ -17,6 +17,7 @@ void* StartConnection(void* client_v){
 
 void* readData(void* client_v){
 
+    cout << "\t\t Read Data Thread started\n";
     Client* client = (Client*)client_v;
 
     Request r = client->ReadStream();

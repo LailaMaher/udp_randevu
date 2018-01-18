@@ -210,27 +210,33 @@ void Client::handleIncomingRequest(Request* new_request){
             setPeerAddress(new_request->getBody());
             cout << "\t\t ===> My peer address [as received from server] " << getPeerIP() << ":" << getPeerPort() << endl;
             original = getPeerPort();
-            cout << "\t\t -- Data --to--> Peer [All ports]" << endl;
-
-            SendStream("X"); // not reached
-            SendStream("3" + getPeerIP() + "/" + original, false);
-            break;
-
-        case '3':
-            cout << "\t\tReceiver get peer IP-Port" << endl;
-            setPeerAddress(new_request->getBody());
-            original = getPeerPort();
-            cout << "\t\t ===> My peer address [as received from server] " << getPeerIP() << ":" << getPeerPort() << endl;
-            break;
-
-        case '4':
-            cout << "\t\tServer informs Receiver about hello" << endl;
+            cout << "\t\t -- Data --to--> Peer [all ports]" << endl;
 
             for(uint16_t i = 0; i < 65535; i++) {
                 peer_address.sin_port = htons(i);
                 SendStream("X");
             }
 
+            SendStream("3" + getPeerIP() + "/" + original, false);
+            break;
+
+        case '3':
+            cout << "\t\tReceiver get peer IP-Port" << endl;
+            setPeerAddress(new_request->getBody());
+            cout << "\t\t ===> My peer address [as received from server] " << getPeerIP() << ":" << getPeerPort() << endl;
+            original = getPeerPort();
+
+            cout << "\t\t -- Data --to--> Peer [all ports]" << endl;
+
+            for(uint16_t i = 0; i < 65535; i++) {
+                peer_address.sin_port = htons(i);
+                SendStream("X");
+            }
+
+            break;
+
+        case '4':
+            cout << "\t\tServer informs Receiver about hello" << endl;
             SendStream("4" + getPeerIP() + "/" + original, false);
             break;
 
@@ -246,6 +252,7 @@ void Client::handleIncomingRequest(Request* new_request){
 
         case '6':
             cout << "\t\tReceiver sending stream" << endl;
+            SendStream("X");
             SendStream("This is the receiver");
             SendStream("This is the receiver again");
             SendStream("This is the receiver again and again");
