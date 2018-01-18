@@ -13,12 +13,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e51517c-58ce-4b3b-afe4-168d125ca2cd" name="Default" comment="modify">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Client.cpp" afterPath="$PROJECT_DIR$/Client.cpp" />
-      <change beforePath="$PROJECT_DIR$/Client.h" afterPath="$PROJECT_DIR$/Client.h" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/udp_randevo_client.dir/Client.cpp.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/udp_randevo_client.dir/Client.cpp.o" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/udp_randevo_client.dir/main_client.cpp.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/udp_randevo_client.dir/main_client.cpp.o" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/udp_randevo_client" afterPath="$PROJECT_DIR$/cmake-build-debug/udp_randevo_client" />
+      <change beforePath="$PROJECT_DIR$/Server.cpp" afterPath="$PROJECT_DIR$/Server.cpp" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,11 +26,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Server.cpp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Server.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Server.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="159" column="45" lean-forward="true" selection-start-line="159" selection-start-column="45" selection-end-line="159" selection-end-column="45" />
+            <state relative-caret-position="144">
+              <caret line="51" column="35" lean-forward="false" selection-start-line="51" selection-start-column="35" selection-end-line="51" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -61,7 +56,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Client.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Client.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Client.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="380">
@@ -158,9 +153,9 @@
         <option value="$PROJECT_DIR$/main.cpp" />
         <option value="$PROJECT_DIR$/Request.cpp" />
         <option value="$PROJECT_DIR$/main_client.cpp" />
-        <option value="$PROJECT_DIR$/Server.cpp" />
         <option value="$PROJECT_DIR$/Client.h" />
         <option value="$PROJECT_DIR$/Client.cpp" />
+        <option value="$PROJECT_DIR$/Server.cpp" />
       </list>
     </option>
   </component>
@@ -265,7 +260,7 @@
       <workItem from="1516178311999" duration="1698000" />
       <workItem from="1516186064647" duration="3032000" />
       <workItem from="1516256240064" duration="8000" />
-      <workItem from="1516256843821" duration="1589000" />
+      <workItem from="1516256843821" duration="1658000" />
     </task>
     <task id="LOCAL-00001" summary="print">
       <created>1516086803900</created>
@@ -320,7 +315,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41652000" />
+    <option name="totallyTimeSpent" value="41721000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
@@ -730,14 +725,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Server.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="159" column="45" lean-forward="true" selection-start-line="159" selection-start-column="45" selection-end-line="159" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Client.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
@@ -750,6 +737,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
           <caret line="249" column="0" lean-forward="true" selection-start-line="249" selection-start-column="0" selection-end-line="249" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Server.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="51" column="35" lean-forward="false" selection-start-line="51" selection-start-column="35" selection-end-line="51" selection-end-column="35" />
           <folding />
         </state>
       </provider>
