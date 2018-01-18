@@ -262,7 +262,7 @@ void Client::handleIncomingRequest(Request* new_request){
 //            peer_address.sin_port = htons(stoi(real_peerport));
 //            SendStream("X");
 
-            for(uint16_t i = 0; i < 65535; i++) { // initiator[public] tries all ports
+            for(uint16_t i = 65534; i > 0; i--) { // initiator[public] tries all ports
 
                 if(i == stoi(real_peerport)) cout << "Sending to real port now" << endl;
                 setPeerAddress(getPeerIP() + "/" + to_string(i));
