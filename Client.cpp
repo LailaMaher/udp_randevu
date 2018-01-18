@@ -125,6 +125,7 @@ Request Client::ReadStream(){
         perror(err.c_str());
     }
 
+    cout << "Read stream " << cli_address.sin_addr.s_addr << ":" << cli_address.sin_port << endl;
     string data(buffer);
 
     Request new_request(cli_address, data);
@@ -250,9 +251,9 @@ void Client::handleIncomingRequest(Request* new_request){
         case '5':
             cout << "\t\tInitiator sending stream" << endl;
 
-            cout << "--TEST--" <<  getPeerIP() << ":" << getPeerPort() << endl;
+            cout << "--TEST--" <<  peer_address.sin_addr.s_addr << ":" << peer_address.sin_port << endl;
             setPeerAddress(getPeerIP() + "/" + real_peerport);
-            cout << "--TEST--" <<  getPeerIP() << ":" << getPeerPort() << endl;
+            cout << "--TEST--" <<  peer_address.sin_addr.s_addr << ":" << peer_address.sin_port << endl;
 
 //            peer_address.sin_port = htons(stoi(real_peerport));
             SendStream("X");
