@@ -173,6 +173,9 @@ Request Client::AcceptRequest(){
         perror(err.c_str());
     }
 
+    cout << "Accept request " << cli_address.sin_addr.s_addr << ":" << cli_address.sin_port << endl;
+
+
     string data(buffer);
 
     Request new_request(cli_address, data);
