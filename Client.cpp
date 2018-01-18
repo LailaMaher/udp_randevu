@@ -210,12 +210,13 @@ void Client::handleIncomingRequest(Request* new_request){
             setPeerAddress(new_request->getBody());
             cout << "\t\t ===> My peer address [as received from server] " << getPeerIP() << ":" << getPeerPort() << endl;
             original = getPeerPort();
-            cout << "\t\t -- Data --to--> Peer [all ports]" << endl;
-
-            for(uint16_t i = 0; i < 65535; i++) {
-                peer_address.sin_port = htons(i);
-                SendStream("X");
-            }
+            cout << "\t\t -- Data --to--> Peer [received port]" << endl;
+            SendStream("X"); // if initiator is public won't be received
+//
+//            for(uint16_t i = 0; i < 65535; i++) {
+//                peer_address.sin_port = htons(i);
+//                SendStream("X");
+//            }
 
             SendStream("3" + getPeerIP() + "/" + original, false);
             break;
@@ -225,37 +226,44 @@ void Client::handleIncomingRequest(Request* new_request){
             setPeerAddress(new_request->getBody());
             cout << "\t\t ===> My peer address [as received from server] " << getPeerIP() << ":" << getPeerPort() << endl;
             original = getPeerPort();
-
-            cout << "\t\t -- Data --to--> Peer [all ports]" << endl;
-
-            for(uint16_t i = 0; i < 65535; i++) {
-                peer_address.sin_port = htons(i);
-                SendStream("X");
-            }
+//
+//            cout << "\t\t -- Data --to--> Peer [all ports]" << endl;
+//
+//            for(uint16_t i = 0; i < 65535; i++) {
+//                peer_address.sin_port = htons(i);
+//                SendStream("X");
+//            }
 
             break;
 
         case '4':
-            cout << "\t\tServer informs Receiver about hello" << endl;
+            cout << "\t\tServer informs Receiver about hello" << endl; //receiver is behind NAT, didn't receive X
             SendStream("4" + getPeerIP() + "/" + original, false);
             break;
 
         case '5':
             cout << "\t\tInitiator sending stream" << endl;
+
+
+            for(uint16_t i = 0; i < 65535; i++) { // initiator[public] tries all ports
+                peer_address.sin_port = htons(i);
+                SendStream("X");
+            }
+
             SendStream("5" + getPeerIP() + "/" + original, false);
-            SendStream("X");
-            SendStream("This is the sender");
-            SendStream("This is the sender again");
-            SendStream("This is the sender again and again");
+//            SendStream("X");
+//            SendStream("This is the sender");
+//            SendStream("This is the sender again");
+//            SendStream("This is the sender again and again");
             SendStream("7sender:finish", false);
             break;
 
         case '6':
-            cout << "\t\tReceiver sending stream" << endl;
-            SendStream("X");
-            SendStream("This is the receiver");
-            SendStream("This is the receiver again");
-            SendStream("This is the receiver again and again");
+//            cout << "\t\tReceiver sending stream" << endl;
+//            SendStream("X");
+//            SendStream("This is the receiver");
+//            SendStream("This is the receiver again");
+//            SendStream("This is the receiver again and again");
             SendStream("7receiver:finish", false);
             break;
 
