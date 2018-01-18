@@ -11,7 +11,7 @@ class Client {
 
     int PORT_NUM, SERV_PORT_NUM, OTHER_PORT, OTHER_OTHER_PORT;
     string original;
-    int descriptor;
+    int descriptor, p2pdesc;
     SOCKADDR_IN address, peer_address, server_address, other_address, other_other_address;
 
 
@@ -27,7 +27,7 @@ public:
     int getDescriptor() const;
 
     void SendStream(string, bool = true);
-    string ReadStream(SOCKADDR_IN&, socklen_t&);
+    Request ReadStream();
 
     void setPeerAddress(string);
     void changePeerAddress(SOCKADDR_IN&);

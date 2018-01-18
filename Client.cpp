@@ -23,43 +23,43 @@ void Client::setServer(){
           server->h_length);
 
     server_address.sin_port = htons(SERV_PORT_NUM);
-
-    /*
-     * Second server
-     */
-
-
-    other_address.sin_family = AF_INET;
-
-    struct hostent* other = gethostbyname("165.227.175.2");
-    bcopy((char *)other->h_addr,
-          (char *)&other_address.sin_addr.s_addr,
-          other->h_length);
-
-    other_address.sin_port = htons(OTHER_PORT);
-
-
-
-    /*
-     * third server
-     */
-
-
-    other_other_address.sin_family = AF_INET;
-
-    struct hostent* other_other = gethostbyname("165.227.175.2");
-    bcopy((char *)other_other->h_addr,
-          (char *)&other_other_address.sin_addr.s_addr,
-          other_other->h_length);
-
-    other_other_address.sin_port = htons(OTHER_OTHER_PORT);
+//
+//    /*
+//     * Second server
+//     */
+//
+//
+//    other_address.sin_family = AF_INET;
+//
+//    struct hostent* other = gethostbyname("165.227.175.2");
+//    bcopy((char *)other->h_addr,
+//          (char *)&other_address.sin_addr.s_addr,
+//          other->h_length);
+//
+//    other_address.sin_port = htons(OTHER_PORT);
+//
+//
+//
+//    /*
+//     * third server
+//     */
+//
+//
+//    other_other_address.sin_family = AF_INET;
+//
+//    struct hostent* other_other = gethostbyname("165.227.175.2");
+//    bcopy((char *)other_other->h_addr,
+//          (char *)&other_other_address.sin_addr.s_addr,
+//          other_other->h_length);
+//
+//    other_other_address.sin_port = htons(OTHER_OTHER_PORT);
 
 }
 
 void Client::setAddress(){
     address.sin_family = AF_INET;
     address.sin_addr.s_addr = INADDR_ANY;
-    address.sin_port = htons(PORT_NUM);
+    address.sin_port = htons(OTHER_PORT);
 }
 
 sockaddr* Client::getAddress() const{
@@ -69,9 +69,13 @@ sockaddr* Client::getAddress() const{
 void Client::CreateSocket(){
 
     setDescriptor(socket(AF_INET, SOCK_DGRAM, 0));
+
+    p2pdesc = socket(AF_INET, SOCK_DGRAM, 0);
+    if(p2pdesc < 0) perror("FAILED TO CREATE P2P SOCKET");
+
     setAddress();
-//    if( bind(getDescriptor(), (struct sockaddr *)&address, sizeof(address)) < 0 )
-//        perror("BIND ERROR");
+    if( bind(getDescriptor(), (struct sockaddr *)&address, sizeof(address)) < 0 )
+        perror("BIND ERROR");
 }
 
 void Client::setDescriptor(int descriptor){
@@ -89,7 +93,7 @@ void Client::SendStream(string data, bool DATA){
     strcpy(buffer, data.c_str());
 
     if(DATA){
-        if( sendto(getDescriptor(), buffer, 1023, 0, (struct sockaddr*)&peer_address, sizeof(peer_address)) < 0 )
+        if( sendto(p2pdesc, buffer, 1023, 0, (struct sockaddr*)&peer_address, sizeof(peer_address)) < 0 )
         {
             string err = "READ STREAM FAILED PORT NUM = " + ntohs(peer_address.sin_port);
             perror(err.c_str());
@@ -109,13 +113,24 @@ void Client::SendStream(string data, bool DATA){
 
 }
 
-string Client::ReadStream(SOCKADDR_IN& cli, socklen_t& l){
+Request Client::ReadStream(){
+
     char buffer[1024];
-    if( recvfrom(getDescriptor(), buffer, 1023, 0, (struct sockaddr*)&cli, &l) < 0)
-        perror("READ STREAM FAILED");
+
+    struct sockaddr_in cli_address;
+    socklen_t l = sizeof(cli_address);
+
+    if( recvfrom(p2pdesc, buffer, 1023, 0, (struct sockaddr *)&cli_address, &l) < 0){
+        string err = "READ STREAM FAILED PORT NUM = " + ntohs(cli_address.sin_port);
+        perror(err.c_str());
+    }
 
     string data(buffer);
-    return data;
+
+    Request new_request(cli_address, data);
+
+    return new_request;
+
 }
 
 void Client::setPeerAddress(string iport){
