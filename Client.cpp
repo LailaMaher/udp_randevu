@@ -189,22 +189,22 @@ void Client::handleIncomingRequest(Request* new_request){
             cout << "\t\tInitiator get peer IP-Port" << endl;
             setPeerAddress(new_request->getBody());
             cout << "\t\t ===> My peer address [as received from server] " << getPeerIP() << ":" << getPeerPort() << endl;
+            original = getPeerIP();
             cout << "\t\t -- Data --to--> Peer [All ports]" << endl;
             for(uint16_t i = 0; i < 65535; i++) {
-                if(i == stoi(getPeerIP())) continue;
                 peer_address.sin_port = htons(i);
                 SendStream("X");
             }
 
-            SendStream("3" + getPeerIP() + "/" + getPeerPort(), false);
+            SendStream("3" + getPeerIP() + "/" + original, false);
             break;
 
         case '3':
             cout << "\t\tReceiver get peer IP-Port" << endl;
             setPeerAddress(new_request->getBody());
+            original = getPeerIP();
             cout << "\t\t ===> My peer address [as received from server] " << getPeerIP() << ":" << getPeerPort() << endl;
             for(uint16_t i = 0; i < 65535; i++) {
-                if(i == stoi(getPeerIP())) continue;
                 peer_address.sin_port = htons(i);
                 SendStream("X");
             }
@@ -212,12 +212,12 @@ void Client::handleIncomingRequest(Request* new_request){
 
         case '4':
             cout << "\t\tServer informs Receiver about hello" << endl;
-            SendStream("4" + getPeerIP() + "/" + getPeerPort(), false);
+            SendStream("4" + getPeerIP() + "/" + original, false);
             break;
 
         case '5':
             cout << "\t\tInitiator sending stream" << endl;
-            SendStream("5" + getPeerIP() + "/" + getPeerPort(), false);
+            SendStream("5" + getPeerIP() + "/" + original, false);
             cout << "\t\t ===> My peer address [as received by 'X' sync msg]" << getPeerIP() << ":" << getPeerPort() << endl;
             SendStream("This is the sender");
             SendStream("This is the sender again");
