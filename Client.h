@@ -10,7 +10,7 @@
 class Client {
 
     int PORT_NUM, SERV_PORT_NUM, OTHER_PORT, OTHER_OTHER_PORT;
-    string original;
+    string original, real_peerport;
     int descriptor, p2pdesc;
     SOCKADDR_IN address, peer_address, server_address, other_address, other_other_address;
 

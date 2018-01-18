@@ -95,7 +95,7 @@ void Client::SendStream(string data, bool DATA){
     if(DATA){
         if( sendto(p2pdesc, buffer, 1023, 0, (struct sockaddr*)&peer_address, sizeof(peer_address)) < 0 )
         {
-            string err = "READ STREAM FAILED PORT NUM = " + ntohs(peer_address.sin_port);
+            string err = "READ STREAM FAILED PORT NUM = " + to_string(ntohs(peer_address.sin_port)) + " ";
             perror(err.c_str());
         }
     }
@@ -200,6 +200,8 @@ void Client::handleIncomingRequest(Request* new_request){
     cout << "\t\t\t -- This is a request from " << new_request->getIP() << ":" << new_request->getPort() << "--" << endl;
     cout << "\t\t\t -- request token " << token << endl;
 
+    if(token == 'H') real_peerport = new_request->getPort();
+
     switch(token){
         case '1':
             cout << "\t\t Connection to server succeed My Id[" << new_request->getBody() << "]" << endl;
@@ -247,6 +249,9 @@ void Client::handleIncomingRequest(Request* new_request){
 
 
             for(uint16_t i = 0; i < 65535; i++) { // initiator[public] tries all ports
+
+                if(i == stoi(real_peerport)) cout << "Sending to real port now" << endl;
+
                 peer_address.sin_port = htons(i);
                 SendStream("X");
             }
@@ -260,7 +265,7 @@ void Client::handleIncomingRequest(Request* new_request){
             break;
 
         case '6':
-//            cout << "\t\tReceiver sending stream" << endl;
+            cout << "\t\tReceiver sending stream" << endl;
 //            SendStream("X");
 //            SendStream("This is the receiver");
 //            SendStream("This is the receiver again");
