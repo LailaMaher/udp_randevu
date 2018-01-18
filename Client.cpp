@@ -238,6 +238,7 @@ void Client::handleIncomingRequest(Request* new_request){
 
         case '4':
             cout << "\t\tServer informs Receiver about hello" << endl; //receiver is behind NAT, didn't receive X
+            SendStream("HELLOOO");
             SendStream("4" + getPeerIP() + "/" + original, false);
             break;
 
