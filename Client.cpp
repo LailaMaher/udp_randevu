@@ -95,13 +95,13 @@ void Client::SendStream(string data, bool DATA){
     }
     else {
 
-        cout << "\t\t Data sent to servers" << endl;
-//        cout << "\t\t -- Data --to--> Server[1]" << endl;
+//        cout << "\t\t Data sent to servers" << endl;
+        cout << "\t\t -- Data --to--> Server" << endl;
         sendto(descriptor, buffer, 1023, 0, (struct sockaddr*)&server_address, sizeof(server_address));
 //        cout << "\t\t -- Data --to--> Server[2]" << endl;
-        sendto(descriptor, buffer, 1023, 0, (struct sockaddr*)&other_address, sizeof(other_address));
+//        sendto(descriptor, buffer, 1023, 0, (struct sockaddr*)&other_address, sizeof(other_address));
 //        cout << "\t\t -- Data --to--> Server[3]" << endl;
-        sendto(descriptor, buffer, 1023, 0, (struct sockaddr*)&other_other_address, sizeof(other_other_address));
+//        sendto(descriptor, buffer, 1023, 0, (struct sockaddr*)&other_other_address, sizeof(other_other_address));
 
     }
 
@@ -190,7 +190,12 @@ void Client::handleIncomingRequest(Request* new_request){
             cout << "\t\tInitiator get peer IP-Port" << endl;
             setPeerAddress(new_request->getBody());
             cout << "\t\t ===> My peer address [as received from server] " << getPeerIP() << ":" << getPeerPort() << endl;
-            SendStream("X"); // this will succeed if the behind NAT initiates but not true if the public initiates
+
+            for(uint16_t i = 0; i < 65535; i++) {
+                peer_address.sin_port = htons(i);
+                SendStream("X");
+            }
+
             SendStream("3" + getPeerIP() + "/" + getPeerPort(), false);
             break;
 
@@ -198,7 +203,10 @@ void Client::handleIncomingRequest(Request* new_request){
             cout << "\t\tReceiver get peer IP-Port" << endl;
             setPeerAddress(new_request->getBody());
             cout << "\t\t ===> My peer address [as received from server] " << getPeerIP() << ":" << getPeerPort() << endl;
-            SendStream("X");
+            for(uint16_t i = 0; i < 65535; i++) {
+                peer_address.sin_port = htons(i);
+                SendStream("X");
+            }
             break;
 
         case '4':

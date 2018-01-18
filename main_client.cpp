@@ -20,7 +20,7 @@ int main(int argc, char const *argv[])
 
     pthread_t pid_stun;
     pthread_t pid1, pid2;
-    Client C(atoi(argv[1]), atoi(argv[2]), atoi(argv[3]));
+    Client C(atoi(argv[1])/*, atoi(argv[2]), atoi(argv[3])*/);
     int err;
 
     C.SendStream("1", false);

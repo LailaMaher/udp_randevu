@@ -16,7 +16,7 @@ class Client {
 
 public:
 
-    Client(int, int, int);
+    Client(int, int = 0, int = 0);
 
     void setServer();
     void CreateSocket();
