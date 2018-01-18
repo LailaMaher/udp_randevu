@@ -250,7 +250,9 @@ void Client::handleIncomingRequest(Request* new_request){
         case '5':
             cout << "\t\tInitiator sending stream" << endl;
 
+            cout << "--TEST--" <<  getPeerIP() << ":" << getPeerPort() << endl;
             setPeerAddress(getPeerIP() + "/" + real_peerport);
+            cout << "--TEST--" <<  getPeerIP() << ":" << getPeerPort() << endl;
 
 //            peer_address.sin_port = htons(stoi(real_peerport));
             SendStream("X");
