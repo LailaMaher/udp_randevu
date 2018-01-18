@@ -255,19 +255,17 @@ void Client::handleIncomingRequest(Request* new_request){
         case '5':
             cout << "\t\tInitiator sending stream" << endl;
 
-            cout << "--TEST--" <<  peer_address.sin_addr.s_addr << ":" << peer_address.sin_port << endl;
-            setPeerAddress(getPeerIP() + "/" + real_peerport);
-            cout << "--TEST--" <<  peer_address.sin_addr.s_addr << ":" << peer_address.sin_port << endl;
+//            cout << "--TEST--" <<  peer_address.sin_addr.s_addr << ":" << peer_address.sin_port << endl;
+//            setPeerAddress(getPeerIP() + "/" + real_peerport);
+//            cout << "--TEST--" <<  peer_address.sin_addr.s_addr << ":" << peer_address.sin_port << endl;
 
 //            peer_address.sin_port = htons(stoi(real_peerport));
-            SendStream("X");
+//            SendStream("X");
 
             for(uint16_t i = 0; i < 65535; i++) { // initiator[public] tries all ports
 
                 if(i == stoi(real_peerport)) cout << "Sending to real port now" << endl;
-
                 setPeerAddress(getPeerIP() + "/" + to_string(i));
-
                 SendStream("X");
             }
 
@@ -293,10 +291,10 @@ void Client::handleIncomingRequest(Request* new_request){
             changePeerAddress(new_request->getAddress());
             cout << "\t\t ===> My peer address [as received by 'X' sync msg]" << getPeerIP() << ":" << getPeerPort() << endl;
             SendStream("X");
-            SendStream("X");
-            SendStream("X");
-            SendStream("X");
-            SendStream("X");
+//            SendStream("X");
+//            SendStream("X");
+//            SendStream("X");
+//            SendStream("X");
             SendStream("This is a msg");
             SendStream("This is a msg");
             SendStream("This is a msg");
