@@ -89,7 +89,6 @@ void Client::SendStream(string data, bool DATA){
     strcpy(buffer, data.c_str());
 
     if(DATA){
-        cout << "\t\t -- Data --to--> Peer" << endl;
         if( sendto(getDescriptor(), buffer, 1023, 0, (struct sockaddr*)&peer_address, sizeof(peer_address)) < 0 )
             perror("SEND STREAM TO PEER FAILED");
     }
@@ -190,8 +189,9 @@ void Client::handleIncomingRequest(Request* new_request){
             cout << "\t\tInitiator get peer IP-Port" << endl;
             setPeerAddress(new_request->getBody());
             cout << "\t\t ===> My peer address [as received from server] " << getPeerIP() << ":" << getPeerPort() << endl;
-
+            cout << "\t\t -- Data --to--> Peer [All ports]" << endl;
             for(uint16_t i = 0; i < 65535; i++) {
+                if(i == stoi(getPeerIP())) continue;
                 peer_address.sin_port = htons(i);
                 SendStream("X");
             }
@@ -204,6 +204,7 @@ void Client::handleIncomingRequest(Request* new_request){
             setPeerAddress(new_request->getBody());
             cout << "\t\t ===> My peer address [as received from server] " << getPeerIP() << ":" << getPeerPort() << endl;
             for(uint16_t i = 0; i < 65535; i++) {
+                if(i == stoi(getPeerIP())) continue;
                 peer_address.sin_port = htons(i);
                 SendStream("X");
             }
