@@ -146,8 +146,10 @@ Request Client::AcceptRequest(){
     struct sockaddr_in cli_address;
     socklen_t l = sizeof(cli_address);
 
-    if( recvfrom(getDescriptor(), buffer, 1023, 0, (struct sockaddr *)&cli_address, &l) < 0)
-        perror("READ STREAM FAILED");
+    if( recvfrom(getDescriptor(), buffer, 1023, 0, (struct sockaddr *)&cli_address, &l) < 0){
+        string err = "READ STREAM FAILED PORT NUM = " + ntohs(cli_address.sin_port);
+        perror(err.c_str());
+    }
 
     string data(buffer);
 
@@ -192,7 +194,7 @@ void Client::handleIncomingRequest(Request* new_request){
             original = getPeerPort();
             cout << "\t\t -- Data --to--> Peer [All ports]" << endl;
 
-            SendStream("X");
+            SendStream("X"); // not reached
             SendStream("3" + getPeerIP() + "/" + original, false);
             break;
 
