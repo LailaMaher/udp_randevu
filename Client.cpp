@@ -70,12 +70,12 @@ void Client::CreateSocket(){
 
     setDescriptor(socket(AF_INET, SOCK_DGRAM, 0));
 
-    p2pdesc = socket(AF_INET, SOCK_DGRAM, 0);
-    if(p2pdesc < 0) perror("FAILED TO CREATE P2P SOCKET");
+//    p2pdesc = socket(AF_INET, SOCK_DGRAM, 0);
+//    if(p2pdesc < 0) perror("FAILED TO CREATE P2P SOCKET");
 
-    setAddress();
-    if( bind(getDescriptor(), (struct sockaddr *)&address, sizeof(address)) < 0 )
-        perror("BIND ERROR");
+//    setAddress();
+//    if( bind(getDescriptor(), (struct sockaddr *)&address, sizeof(address)) < 0 )
+//        perror("BIND ERROR");
 }
 
 void Client::setDescriptor(int descriptor){
@@ -93,7 +93,7 @@ void Client::SendStream(string data, bool DATA){
     strcpy(buffer, data.c_str());
 
     if(DATA){
-        if( sendto(p2pdesc, buffer, 1023, 0, (struct sockaddr*)&peer_address, sizeof(peer_address)) < 0 )
+        if( sendto(descriptor, buffer, 1023, 0, (struct sockaddr*)&peer_address, sizeof(peer_address)) < 0 )
         {
             string err = "READ STREAM FAILED PORT NUM = " + to_string(ntohs(peer_address.sin_port)) + " ";
             perror(err.c_str());
@@ -103,7 +103,8 @@ void Client::SendStream(string data, bool DATA){
 
 //        cout << "\t\t Data sent to servers" << endl;
         cout << "\t\t -- Data --to--> Server" << endl;
-        sendto(descriptor, buffer, 1023, 0, (struct sockaddr*)&server_address, sizeof(server_address));
+        if( sendto(descriptor, buffer, 1023, 0, (struct sockaddr*)&server_address, sizeof(server_address)) < 0)
+            perror("SEND TO SERVER FAILED");
 //        cout << "\t\t -- Data --to--> Server[2]" << endl;
 //        sendto(descriptor, buffer, 1023, 0, (struct sockaddr*)&other_address, sizeof(other_address));
 //        cout << "\t\t -- Data --to--> Server[3]" << endl;
@@ -115,14 +116,14 @@ void Client::SendStream(string data, bool DATA){
 
 Request Client::ReadStream(){
 
+
     char buffer[1024];
 
     struct sockaddr_in cli_address;
     socklen_t l = sizeof(cli_address);
 
     if( recvfrom(p2pdesc, buffer, 1023, 0, (struct sockaddr *)&cli_address, &l) < 0){
-        string err = "READ STREAM FAILED PORT NUM = " + ntohs(cli_address.sin_port);
-        perror(err.c_str());
+        perror("READ STREAM");
     }
 
     cout << "Read stream " << cli_address.sin_addr.s_addr << ":" << cli_address.sin_port << endl;

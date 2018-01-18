@@ -14,16 +14,16 @@ void* StartConnection(void* client_v){
 
     return NULL;
 }
-
-void* readData(void* client_v){
-
-    cout << "\t\t Read Data Thread started\n";
-    Client* client = (Client*)client_v;
-
-    Request r = client->ReadStream();
-    client->handleIncomingRequest(&r);
-
-}
+//
+//void* readData(void* client_v){
+//
+//    cout << "\t\t Read Data Thread started\n";
+//    Client* client = (Client*)client_v;
+//
+//    Request r = client->ReadStream();
+//    client->handleIncomingRequest(&r);
+//
+//}
 
 int main(int argc, char const *argv[])
 {
@@ -35,7 +35,7 @@ int main(int argc, char const *argv[])
 
     C.SendStream("1", false);
 
-    err = pthread_create(&pid1, NULL, &readData, &C);
+//    err = pthread_create(&pid1, NULL, &readData, &C);
     err = pthread_create(&pid2, NULL, &StartConnection, &C);
 
 
