@@ -264,6 +264,13 @@ void Client::handleIncomingRequest(Request* new_request){
             changePeerAddress(new_request->getAddress());
             cout << "\t\t ===> My peer address [as received by 'X' sync msg]" << getPeerIP() << ":" << getPeerPort() << endl;
             SendStream("X");
+            SendStream("X");
+            SendStream("X");
+            SendStream("X");
+            SendStream("X");
+            SendStream("This is a msg");
+            SendStream("This is a msg");
+            SendStream("This is a msg");
             break;
 
         default:
