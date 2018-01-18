@@ -90,7 +90,10 @@ void Client::SendStream(string data, bool DATA){
 
     if(DATA){
         if( sendto(getDescriptor(), buffer, 1023, 0, (struct sockaddr*)&peer_address, sizeof(peer_address)) < 0 )
-            perror("SEND STREAM TO PEER FAILED");
+        {
+            string err = "READ STREAM FAILED PORT NUM = " + ntohs(peer_address.sin_port);
+            perror(err.c_str());
+        }
     }
     else {
 
